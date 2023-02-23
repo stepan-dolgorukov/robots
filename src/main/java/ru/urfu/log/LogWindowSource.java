@@ -1,4 +1,4 @@
-package log;
+package ru.urfu.log;
 
 import java.util.ArrayList;
 import java.util.Collections;

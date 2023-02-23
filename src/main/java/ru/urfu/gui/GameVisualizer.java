@@ -1,4 +1,4 @@
-package gui;
+package ru.urfu.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
