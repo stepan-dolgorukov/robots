@@ -107,31 +107,6 @@ public class MainApplicationFrame extends JFrame {
     }
 
     /**
-     * Обработка нажатия кнопки выхода.
-     */
-    private void onExitPress() {
-        final String[] options = {"Так точно", "Никак нет"};
-
-        final int exit = JOptionPane.showOptionDialog(
-                this,
-                "Вы точно хотите выйти?",
-                "Подтверждение",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-
-                // стандартно подсвечивается кнопка подтверждения
-                options[0]);
-
-        // 0 - Пользователь подтвердил выход
-        if (0 == exit) {
-            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
-                    new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        }
-    }
-
-    /**
      * Создает меню выбора стиля пользовательского интерфейса программы.
      *
      * @return объект-меню
@@ -195,6 +170,31 @@ public class MainApplicationFrame extends JFrame {
 
         menu.add(addLogMessageItem);
         return menu;
+    }
+
+    /**
+     * Обработка нажатия кнопки выхода.
+     */
+    private void onExitPress() {
+        final String[] options = {"Так точно", "Никак нет"};
+
+        final int exit = JOptionPane.showOptionDialog(
+                this,
+                "Вы точно хотите выйти?",
+                "Подтверждение",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+
+                // стандартно подсвечивается кнопка подтверждения
+                options[0]);
+
+        // 0 - Пользователь подтвердил выход
+        if (0 == exit) {
+            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
+                    new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }
 
     /**
