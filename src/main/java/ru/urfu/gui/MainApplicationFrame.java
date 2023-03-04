@@ -87,16 +87,16 @@ public class MainApplicationFrame extends JFrame
     {
         final JMenuBar menuBar = new JMenuBar();
 
-        for (final JMenuItem menu : generateMenus()) {
-            menuBar.add(menu);
-        }
+        menuBar.add(createLookAndFeelMenu());
+        menuBar.add(createTestsMenu());
+        menuBar.add(createProgramClosingMenu());
 
         return menuBar;
     }
 
-    private List<JMenuItem> generateMenus() {
-        return Arrays.asList(createLookAndFeelMenu(), createTestsMenu(), createProgramClosingMenu());
-    }
+    /*private List<JMenu> generateMenus() {
+        eturn Arrays.asList(createLookAndFeelMenu(), createTestsMenu(), createProgramClosingMenu());
+    }*/
 
     /**
      * Обработка нажатия кнопки выхода.
@@ -180,10 +180,12 @@ public class MainApplicationFrame extends JFrame
      * Создаёт меню выхода из программы.
      * @return объект-меню
      */
-    private JMenuItem createProgramClosingMenu() {
-        final JMenuItem menu = new JMenuItem("Выход");
-        menu.addActionListener((event) -> onExitPress());
-        return menu;
+    private JButton createProgramClosingMenu() {
+        final JButton button = new JButton("Выход");
+        button.setMnemonic(KeyEvent.VK_E);
+
+        button.addActionListener((event) -> onExitPress());
+        return button;
     }
 
     private void setLookAndFeel(String className)
