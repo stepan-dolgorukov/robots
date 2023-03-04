@@ -190,7 +190,7 @@ public class MainApplicationFrame extends JFrame {
     /**
      * Создаёт меню выхода из программы.
      *
-     * @return объект-меню
+     * @return объект-кнопка
      */
     private JButton createProgramClosingMenu() {
         final JButton button = new JButton("Выход");
