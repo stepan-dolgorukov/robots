@@ -121,7 +121,7 @@ public class MainApplicationFrame extends JFrame
         final JMenuItem programClosing = new JMenuItem("Выход");
         programClosing.addActionListener((event) -> {
             final String[] options = {"Так точно", "Никак нет"};
-            int exit = JOptionPane.showOptionDialog(
+            final int exit = JOptionPane.showOptionDialog(
                     this,
                     "Вы точно хотите выйти?",
                     "Подтверждение",
@@ -131,6 +131,7 @@ public class MainApplicationFrame extends JFrame
                     options,
                     options[0]);
 
+            // 0 - Пользователь подтвердил выход
             if (0 == exit) {
                 Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
                     new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
