@@ -144,7 +144,10 @@ public class MainApplicationFrame extends JFrame {
                 "Управление режимом отображения приложения");
 
         {
-            final JMenuItem systemLookAndFeel = new JMenuItem("Системная схема", KeyEvent.VK_S);
+            final JMenuItem systemLookAndFeel = new JMenuItem(
+                    "Системная схема");
+
+            systemLookAndFeel.setMnemonic(KeyEvent.VK_S);
             systemLookAndFeel.addActionListener((event) -> {
                 setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 this.invalidate();
@@ -154,13 +157,17 @@ public class MainApplicationFrame extends JFrame {
         }
 
         {
-            final JMenuItem crossplatformLookAndFeel = new JMenuItem("Универсальная схема", KeyEvent.VK_S);
-            crossplatformLookAndFeel.addActionListener((event) -> {
-                setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            final JMenuItem lookAndFeel = new JMenuItem(
+                    "Универсальная схема");
+
+            lookAndFeel.setMnemonic(KeyEvent.VK_S);
+            lookAndFeel.addActionListener((event) -> {
+                setLookAndFeel(
+                        UIManager.getCrossPlatformLookAndFeelClassName());
                 this.invalidate();
             });
 
-            menu.add(crossplatformLookAndFeel);
+            menu.add(lookAndFeel);
         }
 
         return menu;
@@ -178,7 +185,10 @@ public class MainApplicationFrame extends JFrame {
         menu.getAccessibleContext().setAccessibleDescription(
                 "Тестовые команды");
 
-        final JMenuItem addLogMessageItem = new JMenuItem("Сообщение в лог", KeyEvent.VK_S);
+        final JMenuItem addLogMessageItem = new JMenuItem(
+                "Сообщение в лог");
+
+        addLogMessageItem.setMnemonic(KeyEvent.VK_S);
         addLogMessageItem.addActionListener((event) -> {
             Logger.debug("Новая строка");
         });
@@ -205,8 +215,10 @@ public class MainApplicationFrame extends JFrame {
         try {
             UIManager.setLookAndFeel(className);
             SwingUtilities.updateComponentTreeUI(this);
-        } catch (ClassNotFoundException | InstantiationException
-                 | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException
+                 | InstantiationException
+                 | IllegalAccessException
+                 | UnsupportedLookAndFeelException e) {
             // just ignore
         }
     }
