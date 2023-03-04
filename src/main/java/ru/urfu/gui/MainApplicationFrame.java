@@ -15,47 +15,47 @@ import ru.urfu.log.Logger;
  * Что требуется сделать:
  * 1. Метод создания меню перегружен функционалом и трудно читается.
  * Следует разделить его на серию более простых методов (или вообще выделить отдельный класс).
- *
  */
-public class MainApplicationFrame extends JFrame
-{
+public class MainApplicationFrame extends JFrame {
     private final JDesktopPane desktopPane = new JDesktopPane();
+
     public MainApplicationFrame() {
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
         int inset = 50;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(inset, inset,
-            screenSize.width  - inset*2,
-            screenSize.height - inset*2);
+                screenSize.width - inset * 2,
+                screenSize.height - inset * 2);
 
         setContentPane(desktopPane);
         LogWindow logWindow = createLogWindow();
         addWindow(logWindow);
 
         GameWindow gameWindow = new GameWindow();
-        gameWindow.setSize(400,  400);
+        gameWindow.setSize(400, 400);
         addWindow(gameWindow);
 
         setJMenuBar(generateMenuBar());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    protected LogWindow createLogWindow()
-    {
+
+    protected LogWindow createLogWindow() {
         LogWindow logWindow = new LogWindow(Logger.getDefaultLogSource());
-        logWindow.setLocation(10,10);
+        logWindow.setLocation(10, 10);
         logWindow.setSize(300, 800);
         setMinimumSize(logWindow.getSize());
         logWindow.pack();
         Logger.debug("Протокол работает");
         return logWindow;
     }
-    protected void addWindow(JInternalFrame frame)
-    {
+
+    protected void addWindow(JInternalFrame frame) {
         desktopPane.add(frame);
         frame.setVisible(true);
     }
-//    protected JMenuBar createMenuBar() {
+
+    //    protected JMenuBar createMenuBar() {
 //        JMenuBar menuBar = new JMenuBar();
 // 
 //        //Set up the lone menu.
@@ -83,8 +83,7 @@ public class MainApplicationFrame extends JFrame
 // 
 //        return menuBar;
 //    }
-    private JMenuBar generateMenuBar()
-    {
+    private JMenuBar generateMenuBar() {
         final JMenuBar menuBar = new JMenuBar();
 
         for (final AbstractButton item : generateMenuBarItems()) {
@@ -96,6 +95,7 @@ public class MainApplicationFrame extends JFrame
 
     /**
      * Создание всех элементов менюбара.
+     *
      * @return список элементов
      */
     private List<AbstractButton> generateMenuBarItems() {
@@ -131,6 +131,7 @@ public class MainApplicationFrame extends JFrame
 
     /**
      * Создает меню выбора стиля пользовательского интерфейса программы.
+     *
      * @return объект-меню
      */
     private JMenu createLookAndFeelMenu() {
@@ -165,47 +166,45 @@ public class MainApplicationFrame extends JFrame
 
     /**
      * Создаёт меню c тестами.
+     *
      * @return объект-меню
      */
     private JMenu createTestsMenu() {
         final JMenu menu = new JMenu("Тесты");
-        menu.setMnemonic(KeyEvent.VK_T);
 
+        menu.setMnemonic(KeyEvent.VK_T);
         menu.getAccessibleContext().setAccessibleDescription(
                 "Тестовые команды");
-        {
-            final JMenuItem addLogMessageItem = new JMenuItem("Сообщение в лог", KeyEvent.VK_S);
-            addLogMessageItem.addActionListener((event) -> {
-                Logger.debug("Новая строка");
-            });
-            menu.add(addLogMessageItem);
-        }
 
+        final JMenuItem addLogMessageItem = new JMenuItem("Сообщение в лог", KeyEvent.VK_S);
+        addLogMessageItem.addActionListener((event) -> {
+            Logger.debug("Новая строка");
+        });
+
+        menu.add(addLogMessageItem);
         return menu;
     }
 
     /**
      * Создаёт меню выхода из программы.
+     *
      * @return объект-меню
      */
     private JButton createProgramClosingMenu() {
         final JButton button = new JButton("Выход");
-        button.setMnemonic(KeyEvent.VK_E);
 
+        button.setMnemonic(KeyEvent.VK_E);
         button.addActionListener((event) -> onExitPress());
+
         return button;
     }
 
-    private void setLookAndFeel(String className)
-    {
-        try
-        {
+    private void setLookAndFeel(String className) {
+        try {
             UIManager.setLookAndFeel(className);
             SwingUtilities.updateComponentTreeUI(this);
-        }
-        catch (ClassNotFoundException | InstantiationException
-            | IllegalAccessException | UnsupportedLookAndFeelException e)
-        {
+        } catch (ClassNotFoundException | InstantiationException
+                 | IllegalAccessException | UnsupportedLookAndFeelException e) {
             // just ignore
         }
     }
