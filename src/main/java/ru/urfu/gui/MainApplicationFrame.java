@@ -120,7 +120,9 @@ public class MainApplicationFrame extends JFrame {
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 options,
-                options[0]); // стандартно подсвечивается кнопка подтверждения.
+
+                // стандартно подсвечивается кнопка подтверждения
+                options[0]);
 
         // 0 - Пользователь подтвердил выход
         if (0 == exit) {
