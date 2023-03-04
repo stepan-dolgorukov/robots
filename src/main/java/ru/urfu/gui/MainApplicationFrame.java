@@ -87,7 +87,7 @@ public class MainApplicationFrame extends JFrame
     {
         final JMenuBar menuBar = new JMenuBar();
 
-        for (final AbstractButton item : generateMenuItems()) {
+        for (final AbstractButton item : generateMenuBarItems()) {
             menuBar.add(item);
         }
 
@@ -98,7 +98,7 @@ public class MainApplicationFrame extends JFrame
      * Создание всех элементов менюбара.
      * @return список элементов
      */
-    private List<AbstractButton> generateMenuItems() {
+    private List<AbstractButton> generateMenuBarItems() {
         return Arrays.asList(
                 createLookAndFeelMenu(),
                 createTestsMenu(),
