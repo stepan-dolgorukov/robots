@@ -87,16 +87,24 @@ public class MainApplicationFrame extends JFrame
     {
         final JMenuBar menuBar = new JMenuBar();
 
-        menuBar.add(createLookAndFeelMenu());
-        menuBar.add(createTestsMenu());
-        menuBar.add(createProgramClosingMenu());
+        for (final AbstractButton item : generateMenuItems()) {
+            menuBar.add(item);
+        }
 
         return menuBar;
     }
 
-    /*private List<JMenu> generateMenus() {
-        eturn Arrays.asList(createLookAndFeelMenu(), createTestsMenu(), createProgramClosingMenu());
-    }*/
+    /**
+     * Создание всех элементов менюбара.
+     * @return список элементов
+     */
+    private List<AbstractButton> generateMenuItems() {
+        return Arrays.asList(
+                createLookAndFeelMenu(),
+                createTestsMenu(),
+                createProgramClosingMenu()
+        );
+    }
 
     /**
      * Обработка нажатия кнопки выхода.
