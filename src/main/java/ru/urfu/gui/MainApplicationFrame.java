@@ -119,24 +119,7 @@ public class MainApplicationFrame extends JFrame
         }
 
         final JMenuItem programClosing = new JMenuItem("Выход");
-        programClosing.addActionListener((event) -> {
-            final String[] options = {"Так точно", "Никак нет"};
-            final int exit = JOptionPane.showOptionDialog(
-                    this,
-                    "Вы точно хотите выйти?",
-                    "Подтверждение",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[0]);
-
-            // 0 - Пользователь подтвердил выход
-            if (0 == exit) {
-                Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
-                    new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-            }
-        });
+        programClosing.addActionListener((event) -> onExitPress());
 
         menuBar.add(lookAndFeelMenu);
         menuBar.add(testMenu);
@@ -144,6 +127,30 @@ public class MainApplicationFrame extends JFrame
 
         return menuBar;
     }
+
+    /**
+     * Обработка нажатия кнопки выхода.
+     */
+    private void onExitPress() {
+        final String[] options = {"Так точно", "Никак нет"};
+
+        final int exit = JOptionPane.showOptionDialog(
+                this,
+                "Вы точно хотите выйти?",
+                "Подтверждение",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]); // стандартно подсвечивается кнопка подтверждения.
+
+        // 0 - Пользователь подтвердил выход
+        if (0 == exit) {
+            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
+                    new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
+    }
+
     private void setLookAndFeel(String className)
     {
         try
