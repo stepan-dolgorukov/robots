@@ -204,7 +204,7 @@ public class MainApplicationFrame extends JFrame {
     private JButton createProgramClosingMenu() {
         final JButton button = new JButton("Выход");
 
-        button.setMnemonic(KeyEvent.VK_E);
+        button.setMnemonic(KeyEvent.VK_Q);
         button.addActionListener((event) -> onExitPress());
 
         return button;
