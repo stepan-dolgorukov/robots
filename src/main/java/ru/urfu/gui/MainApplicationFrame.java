@@ -190,8 +190,7 @@ public class MainApplicationFrame extends JFrame {
                 // стандартно подсвечивается кнопка подтверждения
                 options[0]);
 
-        // 0 - Пользователь подтвердил выход
-        if (0 == exit) {
+        if (JOptionPane.YES_OPTION == exit) {
             Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
                     new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
