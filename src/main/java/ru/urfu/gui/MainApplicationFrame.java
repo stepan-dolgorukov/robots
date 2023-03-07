@@ -106,7 +106,7 @@ public class MainApplicationFrame extends JFrame {
      */
     private List<AbstractButton> generateMenuBarItems() {
         return Arrays.asList(createLookAndFeelMenu(), createTestsMenu(),
-            createProgramClosingMenu());
+            createProgramClosingButton());
     }
 
     /**
@@ -196,7 +196,7 @@ public class MainApplicationFrame extends JFrame {
      *
      * @return объект-кнопка
      */
-    private JButton createProgramClosingMenu() {
+    private JButton createProgramClosingButton() {
         final JButton button = new JButton("Выход");
 
         button.setMnemonic(KeyEvent.VK_Q);
