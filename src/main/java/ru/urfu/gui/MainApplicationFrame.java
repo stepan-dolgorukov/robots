@@ -3,7 +3,9 @@ package ru.urfu.gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
@@ -35,7 +37,14 @@ public class MainApplicationFrame extends JFrame {
         addWindow(gameWindow);
 
         setJMenuBar(generateMenuBar());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                onExitPress();
+            }
+        });
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     protected LogWindow createLogWindow() {
@@ -179,8 +188,7 @@ public class MainApplicationFrame extends JFrame {
                 options[0]);
 
         if (JOptionPane.YES_OPTION == exit) {
-            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
-                new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            System.exit(0);
         }
     }
 
@@ -193,7 +201,10 @@ public class MainApplicationFrame extends JFrame {
         final JButton button = new JButton("Выход");
 
         button.setMnemonic(KeyEvent.VK_Q);
-        button.addActionListener((event) -> onExitPress());
+        button.addActionListener(
+            (event)
+                -> Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
+                    new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
 
         return button;
     }
