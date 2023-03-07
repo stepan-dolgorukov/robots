@@ -1,4 +1,4 @@
-package log;
+package ru.urfu.log;
 
 public enum LogLevel
 {
