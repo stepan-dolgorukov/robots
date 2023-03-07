@@ -173,7 +173,7 @@ public class MainApplicationFrame extends JFrame {
     }
 
     /**
-     * Обработка нажатия кнопки выхода.
+     * Показ пользователю диалога подтверждения выхода.
      */
     private void onExitPress() {
         final String[] options = {"Так точно", "Никак нет"};
