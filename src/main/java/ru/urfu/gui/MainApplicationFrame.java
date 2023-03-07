@@ -5,7 +5,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
@@ -107,7 +106,7 @@ public class MainApplicationFrame extends JFrame {
      */
     private List<AbstractButton> generateMenuBarItems() {
         return Arrays.asList(createLookAndFeelMenu(), createTestsMenu(),
-            createProgramClosingMenu());
+            createProgramClosingButton());
     }
 
     /**
@@ -174,7 +173,7 @@ public class MainApplicationFrame extends JFrame {
     }
 
     /**
-     * Обработка нажатия кнопки выхода.
+     * Показ пользователю диалога подтверждения выхода.
      */
     private void onExitPress() {
         final String[] options = {"Так точно", "Никак нет"};
@@ -197,7 +196,7 @@ public class MainApplicationFrame extends JFrame {
      *
      * @return объект-кнопка
      */
-    private JButton createProgramClosingMenu() {
+    private JButton createProgramClosingButton() {
         final JButton button = new JButton("Выход");
 
         button.setMnemonic(KeyEvent.VK_Q);
