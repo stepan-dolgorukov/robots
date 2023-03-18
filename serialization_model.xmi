@@ -41,7 +41,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="uHkHFU91Wlns0" name="StateLoader" isAbstract="true"/>
       <packagedElement xmi:type="uml:Class" xmi:id="uv8LmbfW11wDT" name="FileStateLoader">
         <ownedOperation xmi:type="uml:Operation" xmi:id="uK1zwlWREmtAf" name="loadFrom">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uP6HjdhS2PMvs" name="fileName" visibility="private" type="" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="umGbmAhiTiLWW" name="fileName" visibility="private" type="uUXKOLI6lysJN" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Dependency" xmi:id="uSGALhfF1h4WJ" name="" client="uv8LmbfW11wDT" supplier="uHkHFU91Wlns0"/>
@@ -136,7 +136,7 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="ubOi7ScSyLHuq"/>
+    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="umGbmAhiTiLWW"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Component_View" type="821" open="1"/>
