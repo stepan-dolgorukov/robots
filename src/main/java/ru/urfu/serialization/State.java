@@ -18,10 +18,20 @@ public class State {
         storage = new HashMap<String, String>(properties);
     }
 
+    /**
+     * Получение значения параметра по его имени.
+     * @param property имя параметра
+     * @return значение параметра
+     */
     public String getProperty(String property) {
         return storage.get(property);
     }
 
+    /**
+     * Установить значение параметра по его имени.
+     * @param property имя параметра
+     * @param value значение параметра
+     */
     public void setProperty(String property, String value) {
         storage.put(property, value);
     }
