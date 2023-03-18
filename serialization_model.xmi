@@ -29,7 +29,11 @@
       <packagedElement xmi:type="uml:Class" xmi:id="ul4WYxC68vaqF" name="Transmitable" stereotype="interface">
         <ownedOperation xmi:type="uml:Operation" xmi:id="ujFNbubeb31hN" name="getState"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="ux15tX2fkHvUX" name="StateSaver" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="ux15tX2fkHvUX" name="StateSaver" isAbstract="true">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uF2JP8o7CcaI1" name="save">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXa5Pxd8YcaLI" name="state" visibility="private" type="uD73JcEMMLnpF" value=""/>
+        </ownedOperation>
+      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uyqk0mdLmAz3h" name="FileStateSaver">
         <ownedOperation xmi:type="uml:Operation" xmi:id="ul8LAzFDuypc0" name="saveTo">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uXXkNJUKzYR64" name="fileName" visibility="private" type="uGxgEAfDBLynw" value=""/>
@@ -38,7 +42,9 @@
       <packagedElement xmi:type="uml:Dependency" xmi:id="urMXBLkYBoClU" name="" client="ux15tX2fkHvUX" supplier="uyqk0mdLmAz3h"/>
       <packagedElement xmi:type="uml:Dependency" xmi:id="uTdZNQRfX0Ajo" name="" client="uyqk0mdLmAz3h" supplier="ux15tX2fkHvUX"/>
       <packagedElement xmi:type="uml:Interface" xmi:id="uTmIwYNVE5fIS" name="new_interface" isAbstract="true" stereotype="interface"/>
-      <packagedElement xmi:type="uml:Class" xmi:id="uHkHFU91Wlns0" name="StateLoader" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uHkHFU91Wlns0" name="StateLoader" isAbstract="true">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="unk6DbXYOITLw" name="load"/>
+      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uv8LmbfW11wDT" name="FileStateLoader">
         <ownedOperation xmi:type="uml:Operation" xmi:id="uK1zwlWREmtAf" name="loadFrom">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uUUR7OrJeCCZf" name="fileName" visibility="private" type="uGxgEAfDBLynw" value=""/>
@@ -137,7 +143,7 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="uXXkNJUKzYR64"/>
+    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="uXa5Pxd8YcaLI"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Component_View" type="821" open="1"/>
@@ -176,9 +182,13 @@
             <listitem id="ued4rzg61GcrF" type="815" open="0"/>
             <listitem id="uFSr5XpwuIzMK" type="815" open="0"/>
           </listitem>
-          <listitem id="uHkHFU91Wlns0" type="813" open="1"/>
+          <listitem id="uHkHFU91Wlns0" type="813" open="1">
+            <listitem id="unk6DbXYOITLw" type="815" open="0"/>
+          </listitem>
           <listitem id="u51Ce8v4sxTjp" type="813" open="1"/>
-          <listitem id="ux15tX2fkHvUX" type="813" open="1"/>
+          <listitem id="ux15tX2fkHvUX" type="813" open="1">
+            <listitem id="uF2JP8o7CcaI1" type="815" open="0"/>
+          </listitem>
           <listitem id="uUXKOLI6lysJN" type="813" open="1"/>
           <listitem id="ul4WYxC68vaqF" type="813" open="1">
             <listitem id="ujFNbubeb31hN" type="815" open="0"/>
