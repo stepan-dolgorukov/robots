@@ -32,7 +32,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="ux15tX2fkHvUX" name="StateSaver" isAbstract="true"/>
       <packagedElement xmi:type="uml:Class" xmi:id="uyqk0mdLmAz3h" name="FileStateSaver">
         <ownedOperation xmi:type="uml:Operation" xmi:id="ul8LAzFDuypc0" name="saveTo">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uqXyCkh0JCF0p" name="fileName" visibility="private" type="" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uXXkNJUKzYR64" name="fileName" visibility="private" type="uGxgEAfDBLynw" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Dependency" xmi:id="urMXBLkYBoClU" name="" client="ux15tX2fkHvUX" supplier="uyqk0mdLmAz3h"/>
@@ -41,7 +41,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="uHkHFU91Wlns0" name="StateLoader" isAbstract="true"/>
       <packagedElement xmi:type="uml:Class" xmi:id="uv8LmbfW11wDT" name="FileStateLoader">
         <ownedOperation xmi:type="uml:Operation" xmi:id="uK1zwlWREmtAf" name="loadFrom">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="umGbmAhiTiLWW" name="fileName" visibility="private" type="uUXKOLI6lysJN" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uUUR7OrJeCCZf" name="fileName" visibility="private" type="uGxgEAfDBLynw" value=""/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Dependency" xmi:id="uSGALhfF1h4WJ" name="" client="uv8LmbfW11wDT" supplier="uHkHFU91Wlns0"/>
@@ -81,6 +81,7 @@
         <ownedEnd xmi:type="uml:AssociationEnd" xmi:id="uTGvaQYqk02Zt" name="" type="uD73JcEMMLnpF" aggregation="none" isNavigable="true" changeability="changeable"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uUXKOLI6lysJN" name="String"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uGxgEAfDBLynw" name="Path"/>
       <xmi:Extension extender="umbrello">
         <diagrams resolution="96">
           <diagram xmi.id="uL8SriRnI5nfi" name="robots:Task2" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Sans Serif,14,-1,5,50,0,0,0,0,0" griddotcolor="#f7f7f7" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="1" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="89.5652" canvasheight="812.373" canvaswidth="1183.32" isopen="1">
@@ -136,7 +137,7 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="umGbmAhiTiLWW"/>
+    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="uXXkNJUKzYR64"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Component_View" type="821" open="1"/>
@@ -169,6 +170,7 @@
             <listitem id="ul8LAzFDuypc0" type="815" open="0"/>
           </listitem>
           <listitem id="uTmIwYNVE5fIS" type="817" open="1"/>
+          <listitem id="uGxgEAfDBLynw" type="813" open="1"/>
           <listitem id="uL8SriRnI5nfi" type="807" label="robots:Task2" open="0"/>
           <listitem id="uD73JcEMMLnpF" type="813" open="1">
             <listitem id="ued4rzg61GcrF" type="815" open="0"/>
