@@ -35,4 +35,11 @@ public class State {
     public void setProperty(String property, Object value) {
         storage.put(property, value);
     }
+
+    /**
+     * Получить (k,v)-хранилище параметров.
+     */
+    public Map<String, Object> getStorage() {
+        return storage;
+    }
 }
