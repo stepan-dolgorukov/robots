@@ -4,14 +4,18 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.*;
 
 import org.json.JSONObject;
 import ru.urfu.log.Logger;
+import ru.urfu.serialization.FileStateSaver;
 import ru.urfu.serialization.Saveable;
 import ru.urfu.serialization.State;
+import ru.urfu.serialization.StateSaver;
 
 /**
  * Что требуется сделать:
@@ -192,6 +196,15 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         if (JOptionPane.YES_OPTION == exit) {
             System.exit(0);
         }
+    }
+
+    List<Saveable> getAllToSave() {
+        List<Saveable> objectsToSave = new LinkedList<>();
+        for (final var frame : desktopPane.getAllFrames()) {
+            objectsToSave.add((Saveable)frame);
+        }
+        objectsToSave.add(this);
+        return objectsToSave;
     }
 
     /**
