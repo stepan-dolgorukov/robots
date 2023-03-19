@@ -10,5 +10,5 @@ abstract  public class StateSaver {
      * Источник не раскрывается.
      * @param state состояние объекта для сохранения
      */
-    abstract public void saveState(State state);
+    abstract public void save(State state);
 }
