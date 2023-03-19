@@ -49,4 +49,32 @@ public class FileStateSaver extends StateSaver {
             return;
         }
     }
+    @Override
+    public void save(List<Saveable> objs) {
+        try {
+            storeFile.createNewFile();
+        } catch (IOException e) {
+            return;
+        }
+        storeFile.setWritable(true);
+
+        final JSONObject json = new JSONObject();
+
+        for (final var obj : objs) {
+            final JSONObject jsonState = new JSONObject(obj.state().getStorage());
+            json.put(obj.getName(), jsonState);
+        }
+
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(storeFile);
+        } catch (FileNotFoundException e) {
+            return;
+        }
+        try {
+            fos.write(json.toString(0).getBytes());
+        } catch (IOException e) {
+            return;
+        }
+    }
 }
