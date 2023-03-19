@@ -1,14 +1,17 @@
 package ru.urfu.gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
+
+import org.json.JSONObject;
 import ru.urfu.log.Logger;
+import ru.urfu.serialization.Saveable;
+import ru.urfu.serialization.State;
 
 /**
  * Что требуется сделать:
@@ -16,7 +19,7 @@ import ru.urfu.log.Logger;
  * Следует разделить его на серию более простых методов (или вообще выделить
  * отдельный класс).
  */
-public class MainApplicationFrame extends JFrame {
+public class MainApplicationFrame extends JFrame implements Saveable {
     private final JDesktopPane desktopPane = new JDesktopPane();
 
     public MainApplicationFrame() {
@@ -216,5 +219,40 @@ public class MainApplicationFrame extends JFrame {
             | IllegalAccessException | UnsupportedLookAndFeelException e) {
             // just ignore
         }
+    }
+
+    /**
+     * Получить состояние окошка MainApplicationFrame.
+     */
+    @Override
+    public State state() {
+        final State state = new State();
+
+        {
+            final Point location = getLocation();
+            state.setProperty("X", location.x);
+            state.setProperty("Y", location.y);
+        }
+
+        {
+            final Dimension dimension = getSize();
+            state.setProperty("width", dimension.width);
+            state.setProperty("height", dimension.height);
+        }
+
+        {
+            final boolean hidden = (JFrame.ICONIFIED == getState());
+            state.setProperty("hidden", hidden);
+        }
+
+        return state;
+    }
+
+    /**
+     * Уникальное имя окошка.
+     */
+    @Override
+    public String getName() {
+        return "MainApplicationFrame";
     }
 }

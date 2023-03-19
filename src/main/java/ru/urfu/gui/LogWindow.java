@@ -1,17 +1,16 @@
 package ru.urfu.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.TextArea;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 import ru.urfu.log.LogChangeListener;
 import ru.urfu.log.LogEntry;
 import ru.urfu.log.LogWindowSource;
 
-public class LogWindow extends JInternalFrame implements LogChangeListener
+import ru.urfu.serialization.Saveable;
+import ru.urfu.serialization.State;
+
+public class LogWindow extends JInternalFrame implements LogChangeListener, Saveable
 {
     private LogWindowSource m_logSource;
     private TextArea m_logContent;
@@ -46,5 +45,40 @@ public class LogWindow extends JInternalFrame implements LogChangeListener
     public void onLogChanged()
     {
         EventQueue.invokeLater(this::updateLogContent);
+    }
+
+    /**
+     * Получить состояние окошка LogWindow.
+     */
+    @Override
+    public State state() {
+        final State state = new State();
+
+        {
+            final Point location = getLocation();
+            state.setProperty("X", location.x);
+            state.setProperty("Y", location.y);
+        }
+
+        {
+            final Dimension dimension = getSize();
+            state.setProperty("width", dimension.width);
+            state.setProperty("height", dimension.height);
+        }
+
+        {
+            final boolean hidden = isIcon();
+            state.setProperty("hidden", hidden);
+        }
+
+        return state;
+    }
+
+    /**
+     * Уникальное имя окна.
+     */
+    @Override
+    public String getName() {
+        return "LogWindow";
     }
 }
