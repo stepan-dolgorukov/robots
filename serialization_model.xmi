@@ -34,6 +34,9 @@
         <ownedOperation xmi:type="uml:Operation" xmi:id="uF2JP8o7CcaI1" name="save">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uXa5Pxd8YcaLI" name="state" visibility="private" type="uD73JcEMMLnpF" value=""/>
         </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uBwDqlSyb9tdM" name="save">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhIXL91lxuMum" name="states" visibility="private" type="uGpUu9YpDcSmK" value=""/>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uyqk0mdLmAz3h" name="FileStateSaver">
         <ownedOperation xmi:type="uml:Operation" xmi:id="ul8LAzFDuypc0" name="saveTo">
@@ -90,9 +93,10 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="uUXKOLI6lysJN" name="String"/>
       <packagedElement xmi:type="uml:Class" xmi:id="uGxgEAfDBLynw" name="Path"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uGpUu9YpDcSmK" name="List&lt;State&gt;"/>
       <xmi:Extension extender="umbrello">
         <diagrams resolution="96">
-          <diagram xmi.id="uL8SriRnI5nfi" name="robots:Task2" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Sans Serif,14,-1,5,50,0,0,0,0,0" griddotcolor="#f7f7f7" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="1" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="100" canvasheight="812.373" canvaswidth="1353.42" isopen="1">
+          <diagram xmi.id="uL8SriRnI5nfi" name="robots:Task2" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Sans Serif,14,-1,5,50,0,0,0,0,0" griddotcolor="#f7f7f7" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="1" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="86.9565" canvasheight="812.373" canvaswidth="1353.42" isopen="1">
             <widgets>
               <classwidget xmi.id="uHkHFU91Wlns0" localid="uJG3hFS4CW3hl" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="IBM Plex Sans,14,-1,5,50,0,0,0,0,0,Regular" autoresize="0" x="466.765" y="374.203" width="413.596" height="184.614" isinstance="0" showstereotype="2" showoperations="1" showpubliconly="0" showopsigs="601" showpackage="1" showscope="1" showattributes="1" showattsigs="601" drawascircle="0"/>
               <classwidget xmi.id="uv8LmbfW11wDT" localid="unIymDplYIoYt" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="IBM Plex Sans,14,-1,5,50,0,0,0,0,0,Regular" autoresize="0" x="483.108" y="618.819" width="359.181" height="172.754" isinstance="0" showstereotype="2" showoperations="1" showpubliconly="0" showopsigs="601" showpackage="1" showscope="1" showattributes="1" showattsigs="601"/>
@@ -145,7 +149,7 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="u4RAxcILG17SL"/>
+    <docsettings viewid="uL8SriRnI5nfi" documentation="" uniqueid="uhIXL91lxuMum"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Component_View" type="821" open="1"/>
@@ -175,6 +179,7 @@
           <listitem id="uyqk0mdLmAz3h" type="813" open="1">
             <listitem id="ul8LAzFDuypc0" type="815" open="0"/>
           </listitem>
+          <listitem id="uGpUu9YpDcSmK" type="813" open="1"/>
           <listitem id="uTmIwYNVE5fIS" type="817" open="1"/>
           <listitem id="uGxgEAfDBLynw" type="813" open="1"/>
           <listitem id="uL8SriRnI5nfi" type="807" label="robots:Task2" open="0"/>
@@ -193,6 +198,7 @@
           <listitem id="u51Ce8v4sxTjp" type="813" open="1"/>
           <listitem id="ux15tX2fkHvUX" type="813" open="1">
             <listitem id="uF2JP8o7CcaI1" type="815" open="0"/>
+            <listitem id="uBwDqlSyb9tdM" type="815" open="0"/>
           </listitem>
           <listitem id="uUXKOLI6lysJN" type="813" open="1"/>
         </listitem>
