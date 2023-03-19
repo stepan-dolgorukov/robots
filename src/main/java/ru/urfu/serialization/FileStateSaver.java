@@ -1,6 +1,11 @@
 package ru.urfu.serialization;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Сохранение состояния объекта в файл.
@@ -8,7 +13,7 @@ import java.io.File;
 public class FileStateSaver extends StateSaver {
     File storeFile;
 
-    FileStateSaver(File file) {
+    public FileStateSaver(File file) {
         storeFile = file;
     }
 
@@ -18,6 +23,24 @@ public class FileStateSaver extends StateSaver {
      * @param state состояние объекта для сохранения
      */
     public void saveState(State state) {
-        // TODO: выгрузка состояния в файл
+        try {
+            storeFile.createNewFile();
+        } catch (IOException e) {
+            return;
+        }
+        storeFile.setWritable(true);
+
+        final JSONObject json = new JSONObject(state.getStorage());
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(storeFile);
+        } catch (FileNotFoundException e) {
+            return;
+        }
+        try {
+            fos.write(json.toString(0).getBytes());
+        } catch (IOException e) {
+            return;
+        }
     }
 }
