@@ -10,8 +10,7 @@ abstract  public class StateSaver {
     /**
      * Сохранение состояния объекта.
      * Источник не раскрывается.
-     * @param state состояние объекта для сохранения
+     * @param obj объект, который хотим сохранить
      */
-    abstract public void save(State state);
-    abstract public void save(List<State> states);
+    abstract public void save(Saveable obj);
 }
