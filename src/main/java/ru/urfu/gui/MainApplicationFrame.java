@@ -25,6 +25,8 @@ import ru.urfu.serialization.StateSaver;
  */
 public class MainApplicationFrame extends JFrame implements Saveable {
     private final JDesktopPane desktopPane = new JDesktopPane();
+    private final File storeFile =
+            new File(System.getProperty("user.home").concat("/.robots"));
 
     public MainApplicationFrame() {
         // Make the big window be indented 50 pixels from each edge
@@ -194,6 +196,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
                 options[0]);
 
         if (JOptionPane.YES_OPTION == exit) {
+            final StateSaver saver = new FileStateSaver(storeFile);
+            saver.save(getAllToSave());
+
             System.exit(0);
         }
     }
