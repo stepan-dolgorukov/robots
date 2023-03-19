@@ -5,4 +5,5 @@ package ru.urfu.serialization;
  */
 public interface Saveable {
     State getState();
+    String getName();
 }
