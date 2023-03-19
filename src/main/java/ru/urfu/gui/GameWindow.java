@@ -29,6 +29,10 @@ public class GameWindow extends JInternalFrame implements Saveable
         final State state = new State();
 
         {
+            state.setProperty("name", getName());
+        }
+
+        {
             final Point location = getLocation();
             state.setProperty("X", location.x);
             state.setProperty("Y", location.y);
