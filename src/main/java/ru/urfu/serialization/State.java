@@ -9,13 +9,13 @@ import java.util.Map;
  * Имя параметра, свойства — строка, значение параметра — строка.
  */
 public class State {
-    private Map<String, String> storage;
+    private Map<String, Object> storage;
     public State() {
-        storage = new HashMap<String, String>();
+        storage = new HashMap<String, Object>();
     }
 
-    public State(Map<String, String> properties) {
-        storage = new HashMap<String, String>(properties);
+    public State(Map<String, Object> properties) {
+        storage = new HashMap<String, Object>(properties);
     }
 
     /**
@@ -23,7 +23,7 @@ public class State {
      * @param property имя параметра
      * @return значение параметра
      */
-    public String getProperty(String property) {
+    public Object getProperty(String property) {
         return storage.get(property);
     }
 
@@ -32,7 +32,7 @@ public class State {
      * @param property имя параметра
      * @param value значение параметра
      */
-    public void setProperty(String property, String value) {
+    public void setProperty(String property, Object value) {
         storage.put(property, value);
     }
 }
