@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Сохранение состояния объекта в файл.
@@ -20,9 +21,11 @@ public class FileStateSaver extends StateSaver {
     /**
      * Сохранение состояния объекта в файл.
      * Расположение файла известно заранее. Член storeFile.
-     * @param state состояние объекта для сохранения
+     *
+     * @param obj объект, который хотим сохранить в файл
      */
-    public void saveState(State state) {
+    @Override
+    public void save(Saveable obj) {
         try {
             storeFile.createNewFile();
         } catch (IOException e) {
@@ -30,7 +33,10 @@ public class FileStateSaver extends StateSaver {
         }
         storeFile.setWritable(true);
 
-        final JSONObject json = new JSONObject(state.getStorage());
+        final JSONObject jsonState = new JSONObject(obj.state().getStorage());
+        final JSONObject jsonObj = new JSONObject();
+        jsonObj.put(obj.getName(), jsonState);
+
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(storeFile);
@@ -38,7 +44,7 @@ public class FileStateSaver extends StateSaver {
             return;
         }
         try {
-            fos.write(json.toString(0).getBytes());
+            fos.write(jsonObj.toString(0).getBytes());
         } catch (IOException e) {
             return;
         }
