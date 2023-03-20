@@ -87,6 +87,9 @@ public class LogWindow extends JInternalFrame implements LogChangeListener, Save
         return "LogWindow";
     }
 
+    /**
+     * Восстановить состояния объекта по переданному состоянию.
+     */
     @Override
     public void setState(State state) {
         if (null == state) {

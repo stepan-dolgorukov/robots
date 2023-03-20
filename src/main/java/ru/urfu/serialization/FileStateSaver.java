@@ -49,6 +49,13 @@ public class FileStateSaver extends StateSaver {
             return;
         }
     }
+
+    /**
+     * Сохранение состояний объектов в файл.
+     * Расположение файла известно заранее. Член storeFile.
+     *
+     * @param objs список объектов на сохранение
+     */
     @Override
     public void save(List<Saveable> objs) {
         try {

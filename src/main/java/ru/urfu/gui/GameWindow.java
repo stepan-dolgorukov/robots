@@ -61,6 +61,9 @@ public class GameWindow extends JInternalFrame implements Saveable
         return "GameWindow";
     }
 
+    /**
+     * Восстановить состояния объекта по переданному состоянию.
+     */
     @Override
     public void setState(State state) {
         if (null == state) {

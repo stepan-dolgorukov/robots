@@ -24,6 +24,10 @@ import ru.urfu.serialization.*;
  */
 public class MainApplicationFrame extends JFrame implements Saveable {
     private final JDesktopPane desktopPane = new JDesktopPane();
+
+    /**
+     * Файл, в который будут выгружаться состояния объектов.
+     */
     private final File storeFile =
             new File(System.getProperty("user.home").concat("/.robots"));
 
@@ -55,6 +59,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         setStates();
     }
 
+    /**
+     * Вернуть объекты к сохранённым состояниям.
+     */
     private void setStates() {
         final StateLoader loader = new FileStateLoader(storeFile);
         final Map<String, State> states = loader.load();
@@ -294,6 +301,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         return "MainApplicationFrame";
     }
 
+    /**
+     * Восстановить состояния объекта по переданному состоянию.
+     */
     @Override
     public void setState(State state) {
         if (null == state) {
