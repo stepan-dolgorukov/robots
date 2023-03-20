@@ -4,6 +4,7 @@ import ru.urfu.serialization.Saveable;
 import ru.urfu.serialization.State;
 
 import java.awt.*;
+import java.beans.PropertyVetoException;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
@@ -58,5 +59,28 @@ public class GameWindow extends JInternalFrame implements Saveable
     @Override
     public String getName() {
         return "GameWindow";
+    }
+
+    @Override
+    public void setState(State state) {
+        if (null == state) {
+            return;
+        }
+
+        setSize(
+                (int)state.getProperty("width"),
+                (int)state.getProperty("height"));
+
+        setLocation(
+                (int)state.getProperty("X"),
+                (int)state.getProperty("Y"));
+
+        if ((boolean)state.getProperty("hidden")) {
+            try {
+                setIcon(true);
+            } catch (PropertyVetoException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

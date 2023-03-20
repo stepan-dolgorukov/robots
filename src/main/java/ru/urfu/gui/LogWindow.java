@@ -1,6 +1,7 @@
 package ru.urfu.gui;
 
 import java.awt.*;
+import java.beans.PropertyVetoException;
 import javax.swing.*;
 
 import ru.urfu.log.LogChangeListener;
@@ -84,5 +85,28 @@ public class LogWindow extends JInternalFrame implements LogChangeListener, Save
     @Override
     public String getName() {
         return "LogWindow";
+    }
+
+    @Override
+    public void setState(State state) {
+        if (null == state) {
+            return;
+        }
+
+        setSize(
+                (int)state.getProperty("width"),
+                (int)state.getProperty("height"));
+
+        setLocation(
+                (int)state.getProperty("X"),
+                (int)state.getProperty("Y"));
+
+        if ((boolean)state.getProperty("hidden")) {
+            try {
+                setIcon(true);
+            } catch (PropertyVetoException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
