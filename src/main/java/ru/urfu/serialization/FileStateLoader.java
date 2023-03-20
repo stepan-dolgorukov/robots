@@ -1,6 +1,13 @@
 package ru.urfu.serialization;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Загрузчик состояния объекта из файла.
@@ -18,6 +25,24 @@ public class FileStateLoader extends StateLoader {
      */
     public State loadState() {
         // TODO: чтение из файла, (k,v)-заполнение объекта State
-        return new State();
+        storeFile.setReadable(true);
+
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(storeFile);
+        } catch (FileNotFoundException e) {
+            return new State();
+        }
+
+        String storeData;
+
+        try {
+            storeData = new String(fis.readAllBytes());
+        } catch (IOException e) {
+            return new State();
+        }
+
+        JSONObject jsonState = new JSONObject(storeData);
+        return new State(jsonState.toMap());
     }
 }
