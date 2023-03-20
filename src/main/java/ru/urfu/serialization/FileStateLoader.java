@@ -24,7 +24,6 @@ public class FileStateLoader extends StateLoader {
      * @return отображение name->state
      */
     public Map<String, State> load() {
-        // TODO: чтение из файла, (k,v)-заполнение объекта State
         storeFile.setReadable(true);
 
         FileInputStream fis;
