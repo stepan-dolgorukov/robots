@@ -4,18 +4,17 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.*;
 
 import org.json.JSONObject;
 import ru.urfu.log.Logger;
-import ru.urfu.serialization.FileStateSaver;
-import ru.urfu.serialization.Saveable;
-import ru.urfu.serialization.State;
-import ru.urfu.serialization.StateSaver;
+import ru.urfu.serialization.*;
 
 /**
  * Что требуется сделать:
@@ -29,6 +28,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
             new File(System.getProperty("user.home").concat("/.robots"));
 
     public MainApplicationFrame() {
+        final StateLoader loader = new FileStateLoader(storeFile);
+        final Map<String, State> states = loader.load();
+
         // Make the big window be indented 50 pixels from each edge
         // of the screen.
         int inset = 50;
@@ -52,7 +54,18 @@ public class MainApplicationFrame extends JFrame implements Saveable {
             }
         });
 
+        setStates(states);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    }
+
+    private void setStates(Map<String, State> states) {
+        for (final JInternalFrame frame : desktopPane.getAllFrames()) {
+            final String name = ((Saveable)frame).getName();
+            if (states.containsKey(name)) {
+                ((Saveable) frame).setState(states.get(name));
+            }
+        }
+        setState(states.get(((Saveable)this).getName()));
     }
 
     protected LogWindow createLogWindow() {
@@ -198,7 +211,6 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         if (JOptionPane.YES_OPTION == exit) {
             final StateSaver saver = new FileStateSaver(storeFile);
             saver.save(getAllToSave());
-
             System.exit(0);
         }
     }
@@ -276,5 +288,20 @@ public class MainApplicationFrame extends JFrame implements Saveable {
     @Override
     public String getName() {
         return "MainApplicationFrame";
+    }
+
+    @Override
+    public void setState(State state) {
+        if (null == state) {
+            return;
+        }
+
+        setSize(
+                (int)state.getProperty("width"),
+                (int)state.getProperty("height"));
+
+        setLocation(
+                (int)state.getProperty("X"),
+                (int)state.getProperty("Y"));
     }
 }
