@@ -1,14 +1,17 @@
 package ru.urfu.serialization;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Загрузчик состояния объекта.
  */
 abstract public class StateLoader {
 
     /**
-     * Загрузка состояния.
+     * Загрузка состояния объектов.
      * Источник не раскрывается.
-     * @return состояние
+     * @return отображение объект -> его состояние
      */
-    public abstract State loadState();
+    public abstract Map<String, State> load();
 }
