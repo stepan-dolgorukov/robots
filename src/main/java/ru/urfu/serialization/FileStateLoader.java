@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,10 +20,10 @@ public class FileStateLoader extends StateLoader {
     }
 
     /**
-     * Загрузить состояние объекта из файла.
-     * @return состояние
+     * Загрузить состояния объекта из файла.
+     * @return отображение name->state
      */
-    public State loadState() {
+    public Map<String, State> load() {
         // TODO: чтение из файла, (k,v)-заполнение объекта State
         storeFile.setReadable(true);
 
@@ -31,7 +31,7 @@ public class FileStateLoader extends StateLoader {
         try {
             fis = new FileInputStream(storeFile);
         } catch (FileNotFoundException e) {
-            return new State();
+            return null;
         }
 
         String storeData;
@@ -39,10 +39,17 @@ public class FileStateLoader extends StateLoader {
         try {
             storeData = new String(fis.readAllBytes());
         } catch (IOException e) {
-            return new State();
+            return null;
         }
 
-        JSONObject jsonState = new JSONObject(storeData);
-        return new State(jsonState.toMap());
+        final JSONObject jsonState = new JSONObject(storeData);
+        final Map<String, State> states = new HashMap<>();
+
+        for (final var key : jsonState.toMap().keySet()) {
+            final var jsonObjectState = (JSONObject)(jsonState.get(key));
+            states.put(key, new State(jsonObjectState.toMap()));
+        }
+
+        return states;
     }
 }
