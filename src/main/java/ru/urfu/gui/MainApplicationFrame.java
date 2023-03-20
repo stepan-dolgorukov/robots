@@ -28,9 +28,6 @@ public class MainApplicationFrame extends JFrame implements Saveable {
             new File(System.getProperty("user.home").concat("/.robots"));
 
     public MainApplicationFrame() {
-        final StateLoader loader = new FileStateLoader(storeFile);
-        final Map<String, State> states = loader.load();
-
         // Make the big window be indented 50 pixels from each edge
         // of the screen.
         int inset = 50;
@@ -54,11 +51,18 @@ public class MainApplicationFrame extends JFrame implements Saveable {
             }
         });
 
-        setStates(states);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setStates();
     }
 
-    private void setStates(Map<String, State> states) {
+    private void setStates() {
+        final StateLoader loader = new FileStateLoader(storeFile);
+        final Map<String, State> states = loader.load();
+
+        if (null == states) {
+            return;
+        }
+
         for (final JInternalFrame frame : desktopPane.getAllFrames()) {
             final String name = ((Saveable)frame).getName();
             if (states.containsKey(name)) {
