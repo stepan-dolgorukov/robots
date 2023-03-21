@@ -81,7 +81,7 @@ public class MainApplicationFrame extends JFrame implements Saveable {
             }
         }
 
-        if (this instanceof Saveable) {
+        if (states.containsKey(this.getName())) {
             setState(states.get(getName()));
         }
     }
@@ -236,7 +236,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
     List<Saveable> getAllToSave() {
         List<Saveable> objectsToSave = new LinkedList<>();
         for (final var frame : desktopPane.getAllFrames()) {
-            objectsToSave.add((Saveable)frame);
+            if (frame instanceof Saveable) {
+                objectsToSave.add((Saveable)frame);
+            }
         }
         objectsToSave.add(this);
         return objectsToSave;
