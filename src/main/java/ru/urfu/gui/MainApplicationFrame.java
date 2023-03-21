@@ -71,12 +71,19 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         }
 
         for (final JInternalFrame frame : desktopPane.getAllFrames()) {
-            final String name = ((Saveable)frame).getName();
-            if (states.containsKey(name)) {
-                ((Saveable) frame).setState(states.get(name));
+            if (frame instanceof Saveable) {
+                final Saveable saveable = (Saveable)frame;
+                final String name = saveable.getName();
+
+                if (states.containsKey(saveable.getName())) {
+                    saveable.setState(states.get(name));
+                }
             }
         }
-        setState(states.get(((Saveable)this).getName()));
+
+        if (this instanceof Saveable) {
+            setState(states.get(getName()));
+        }
     }
 
     protected LogWindow createLogWindow() {
