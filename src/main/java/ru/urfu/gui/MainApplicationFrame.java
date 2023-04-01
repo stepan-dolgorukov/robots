@@ -75,14 +75,16 @@ public class MainApplicationFrame extends JFrame implements Saveable {
                 final Saveable saveable = (Saveable)frame;
                 final String name = saveable.getName();
 
-                if (states.containsKey(saveable.getName())) {
+                if (states.containsKey(name)) {
                     saveable.setState(states.get(name));
                 }
             }
         }
 
-        if (states.containsKey(this.getName())) {
-            setState(states.get(getName()));
+        final String name = getName();
+
+        if (states.containsKey(name)) {
+            setState(states.get(name));
         }
     }
 
