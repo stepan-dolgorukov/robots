@@ -39,7 +39,7 @@ public class RobotModel extends Observable {
 
     public void update(int targetPositionX, int targetPositionY)
     {
-        double distance = distance(m_targetPositionX, m_targetPositionY,
+        double distance = distance(targetPositionX, targetPositionY,
                 m_robotPositionX, m_robotPositionY);
         if (distance < 0.5)
         {
