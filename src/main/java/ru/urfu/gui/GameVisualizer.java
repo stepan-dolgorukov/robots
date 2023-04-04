@@ -49,7 +49,7 @@ public class GameVisualizer extends JPanel implements Observer {
             public void mouseClicked(MouseEvent e)
             {
                 robotModel.update(e.getX(), e.getY());
-                System.err.println(String.format("%d %d", e.getX(), e.getY()));
+//                System.err.println(String.format("%d %d", e.getX(), e.getY()));
             }
         });
         setDoubleBuffered(true);
@@ -110,7 +110,7 @@ public class GameVisualizer extends JPanel implements Observer {
         g.setColor(Color.GREEN);
         int x = robotModel.getTargetPositionX();
         int y = robotModel.getTargetPositionY();
-        System.err.println(String.format("%d %d", x, y));
+//        System.err.println(String.format("%d %d", x, y));
         fillOval(g, x, y, 5, 5);
         g.setColor(Color.BLACK);
         drawOval(g, x, y, 5, 5);
