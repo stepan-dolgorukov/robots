@@ -37,7 +37,7 @@ public class RobotModel extends Observable {
         return asNormalizedRadians(Math.atan2(diffY, diffX));
     }
 
-    protected void onModelUpdateEvent()
+    public void update(int targetPositionX, int targetPositionY)
     {
         double distance = distance(m_targetPositionX, m_targetPositionY,
                 m_robotPositionX, m_robotPositionY);
