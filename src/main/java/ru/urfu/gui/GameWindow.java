@@ -8,7 +8,6 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
-import ru.urfu.gui.RobotCoordsFrame;
 
 public class GameWindow extends JInternalFrame implements Saveable
 {
