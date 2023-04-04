@@ -57,6 +57,8 @@ public class RobotModel extends Observable {
             angularVelocity = -maxAngularVelocity;
         }
 
+        m_targetPositionY = targetPositionY;
+        m_targetPositionX = targetPositionX;
         moveRobot(velocity, angularVelocity, 10);
     }
 
