@@ -127,4 +127,11 @@ public class RobotModel extends Observable {
     public double getDirection() {
         return m_robotDirection;
     }
+    public int getTargetPositionX() {
+        return m_targetPositionX;
+    }
+
+    public int getTargetPositionY() {
+        return m_targetPositionY;
+    }
 }
