@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Окошко с координатами робота.
+ * Координаты получаются из observable-объекта (модели).
+ */
 public class RobotCoordsFrame extends JInternalFrame implements Observer {
     final JLabel coordsLabel;
     public RobotCoordsFrame() {
@@ -15,6 +19,11 @@ public class RobotCoordsFrame extends JInternalFrame implements Observer {
         add(coordsLabel);
     }
 
+    /**
+     * Метод, вызываемый, при обновлении observable.
+     * Для получения информации об обновлении на observable-объект нужно
+     * подписаться.
+     */
     @Override
     public void update(Observable observable, Object o) {
         if (observable instanceof RobotModel) {
