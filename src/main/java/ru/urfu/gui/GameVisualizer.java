@@ -9,8 +9,8 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.List;
+import javax.swing.*;
 
-import javax.swing.JPanel;
 import ru.urfu.model.RobotModel;
 
 public class GameVisualizer extends JPanel implements Observer {
@@ -62,7 +62,8 @@ public class GameVisualizer extends JPanel implements Observer {
 
     protected void onModelUpdateEvent()
     {
-        onRedrawEvent();}
+        onRedrawEvent();
+    }
     private static int round(double value)
     {
         return (int)(value + 0.5);
@@ -116,16 +117,27 @@ public class GameVisualizer extends JPanel implements Observer {
         drawOval(g, x, y, 5, 5);
     }
 
+    /**
+     * Регистрация подписчиков.
+     * @param observers список подписчиков
+     */
     public void setObservers(List<Observer> observers) {
         for (Observer observer : observers) {
             setObserver(observer);
         }
     }
 
+    /**
+     * Регистрация подписчика.
+     */
     public void setObserver(Observer observer) {
         robotModel.addObserver(observer);
     }
 
+    /**
+     * Метод, сообщающий об обновлении observable-объекта.
+     * Метод вызывается автоматически.
+     */
     @Override
     public void update(Observable observable, Object obj) {
         onModelUpdateEvent();
