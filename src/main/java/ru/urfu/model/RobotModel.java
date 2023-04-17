@@ -96,21 +96,36 @@ public class RobotModel extends Observable {
         public double getDirection() {
             return direction_;
         }
+
+        public void setVelocity(double velocity) {
+            velocity_ = velocity;
+        }
+        public double getVelocity() {
+            return velocity_;
+        }
+
+        public void setMaxAngularVelocity(double velocity) {
+            maxAngularVelocity_ = velocity;
+        }
+
+        public double getMaxAngularVelocity() {
+            return maxAngularVelocity_;
+        }
     }
 
-    private volatile double m_robotPositionX = 100;
-    private volatile double m_robotPositionY = 100;
-    private volatile double m_robotDirection = 0;
+    RobotState<Double, Integer> robotState_;
 
-    private volatile int m_targetPositionX = 150;
-    private volatile int m_targetPositionY = 100;
+    public RobotModel() {
 
-    private static final double maxVelocity = 0.1;
-    private static final double maxAngularVelocity = 0.001;
-    protected void setTargetPosition(Point p)
-    {
-        m_targetPositionX = p.x;
-        m_targetPositionY = p.y;
+        {
+            Point2D position = new Point2D(100, 100);
+            Point2D targetPosition = new Point2D(150, 100);
+            double velocity = 0.1;
+            double maxAngularVelocity = 0.001;
+
+            robotState_ = new RobotState<>(position, targetPosition, velocity,
+                    maxAngularVelocity);
+        }
     }
     private static double distance(double x1, double y1, double x2, double y2)
     {
@@ -129,26 +144,41 @@ public class RobotModel extends Observable {
 
     public void update(int targetPositionX, int targetPositionY)
     {
-        double distance = distance(targetPositionX, targetPositionY,
-                m_robotPositionX, m_robotPositionY);
+        final Point2D position = robotState_.getPosition();
+        final Point2D targetPosition = robotState_.getTargetPosition();
+        final double direction = robotState_.getDirection();
+
+        final double x = Double.parseDouble(""+position.getAbscissa());
+        final double y = Double.parseDouble(""+position.getOrdinate());
+
+        final int targetX = Integer.parseInt(""+targetPosition.getAbscissa());
+        final int targetY = Integer.parseInt(""+targetPosition.getOrdinate());
+
+        final double distance =
+                distance(targetPositionX, targetPositionY, x, y);
+
         if (distance < 0.5)
         {
             return;
         }
-        double velocity = maxVelocity;
-        double angleToTarget = angleTo(m_robotPositionX, m_robotPositionY, m_targetPositionX, m_targetPositionY);
-        double angularVelocity = 0;
-        if (angleToTarget > m_robotDirection)
+
+        double velocity = robotState_.getVelocity();
+        double angleToTarget = angleTo(x, y, targetX, targetY);
+
+        double angularVelocity = 0.0;
+
+        if (angleToTarget > direction)
         {
-            angularVelocity = maxAngularVelocity;
-        }
-        if (angleToTarget < m_robotDirection)
-        {
-            angularVelocity = -maxAngularVelocity;
+            angularVelocity = robotState_.getMaxAngularVelocity();
         }
 
-        m_targetPositionY = targetPositionY;
-        m_targetPositionX = targetPositionX;
+        if (angleToTarget < direction)
+        {
+            angularVelocity = -robotState_.getMaxAngularVelocity();
+        }
+
+        robotState_.setTargetPosition(new Point2D<>(targetPositionX,
+                targetPositionY));
         moveRobot(velocity, angularVelocity, 10);
     }
 
@@ -163,26 +193,36 @@ public class RobotModel extends Observable {
 
     private void moveRobot(double velocity, double angularVelocity, double duration)
     {
+        final Point2D position = robotState_.getPosition();
+        final double maxVelocity = robotState_.getVelocity();
+        final double maxAngularVelocity = robotState_.getMaxAngularVelocity();
+        final double direction = robotState_.getDirection();
+
+        final double x = Double.parseDouble(""+position.getAbscissa());
+        final double y = Double.parseDouble(""+position.getOrdinate());
+
         velocity = applyLimits(velocity, 0, maxVelocity);
         angularVelocity = applyLimits(angularVelocity, -maxAngularVelocity, maxAngularVelocity);
-        double newX = m_robotPositionX + velocity / angularVelocity *
-                (Math.sin(m_robotDirection  + angularVelocity * duration) -
-                        Math.sin(m_robotDirection));
+        double newX =
+                x + velocity / angularVelocity *
+                (Math.sin(direction  + angularVelocity * duration) -
+                        Math.sin(direction));
         if (!Double.isFinite(newX))
         {
-            newX = m_robotPositionX + velocity * duration * Math.cos(m_robotDirection);
+            newX = x + velocity * duration * Math.cos(direction);
         }
-        double newY = m_robotPositionY - velocity / angularVelocity *
-                (Math.cos(m_robotDirection  + angularVelocity * duration) -
-                        Math.cos(m_robotDirection));
+        double newY = y - velocity / angularVelocity *
+                (Math.cos(direction  + angularVelocity * duration) -
+                        Math.cos(direction));
         if (!Double.isFinite(newY))
         {
-            newY = m_robotPositionY + velocity * duration * Math.sin(m_robotDirection);
+            newY = y + velocity * duration * Math.sin(direction);
         }
-        m_robotPositionX = newX;
-        m_robotPositionY = newY;
-        double newDirection = asNormalizedRadians(m_robotDirection + angularVelocity * duration);
-        m_robotDirection = newDirection;
+
+        robotState_.setPosition(new Point2D<>(newX, newY));
+        double newDirection =
+                asNormalizedRadians(direction + angularVelocity * duration);
+        robotState_.setDirection(newDirection);
 
         setChanged();
         notifyObservers();
@@ -207,21 +247,21 @@ public class RobotModel extends Observable {
     }
 
     public double getPositionX() {
-        return m_robotPositionX;
+        return robotState_.getPosition().getAbscissa();
     }
 
     public double getPositionY() {
-        return m_robotPositionY;
+        return robotState_.getPosition().getOrdinate();
     }
 
     public double getDirection() {
-        return m_robotDirection;
+        return robotState_.getDirection();
     }
     public int getTargetPositionX() {
-        return m_targetPositionX;
+        return robotState_.getTargetPosition().getAbscissa();
     }
 
     public int getTargetPositionY() {
-        return m_targetPositionY;
+        return robotState_.getTargetPosition().getOrdinate();
     }
 }
