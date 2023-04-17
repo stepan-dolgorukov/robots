@@ -127,10 +127,19 @@ public class RobotModel extends Observable {
                     maxAngularVelocity);
         }
     }
-    private static double distance(final double x1, final double y1,
-                                   final double x2, final double y2)
+    private static double distance(final Point2D<Double> first,
+                                   final Point2D<Double> second)
     {
-        return Math.hypot(x1 - x2, y1 - y2);
+        final double firstAbscissa = first.getAbscissa();
+        final double firstOrdinate = first.getOrdinate();
+
+        final double secondAbscissa = second.getAbscissa();
+        final double secondOrdinate = second.getOrdinate();
+
+        final double abscissaDiff = firstAbscissa - secondAbscissa;
+        final double ordinateDiff = firstOrdinate - secondOrdinate;
+
+        return Math.hypot(abscissaDiff, ordinateDiff);
     }
 
     private static double angleTo(final double fromX, final double fromY,
