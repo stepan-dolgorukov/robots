@@ -13,8 +13,8 @@ public class RobotModel extends Observable {
      * @param <DistanceType> тип расстояния
      */
     private class Point2D<DistanceType> {
-        private DistanceType abscissa_;
-        private DistanceType ordinate_;
+        private final DistanceType abscissa_;
+        private final DistanceType ordinate_;
 
         public Point2D(final DistanceType abscissa,
                        final DistanceType ordinate) {
@@ -113,34 +113,36 @@ public class RobotModel extends Observable {
         }
     }
 
-    RobotState<Double, Integer> robotState_;
+    final RobotState<Double, Integer> robotState_;
 
     public RobotModel() {
 
         {
-            Point2D position = new Point2D(100, 100);
-            Point2D targetPosition = new Point2D(150, 100);
-            double maxVelocity = 0.1;
-            double maxAngularVelocity = 0.001;
+            final Point2D position = new Point2D(100, 100);
+            final Point2D targetPosition = new Point2D(150, 100);
+            final double maxVelocity = 0.1;
+            final double maxAngularVelocity = 0.001;
 
             robotState_ = new RobotState<>(position, targetPosition, maxVelocity,
                     maxAngularVelocity);
         }
     }
-    private static double distance(double x1, double y1, double x2, double y2)
+    private static double distance(final double x1, final double y1,
+                                   final double x2, final double y2)
     {
         return Math.hypot(x1 - x2, y1 - y2);
     }
 
-    private static double angleTo(double fromX, double fromY, double toX, double toY)
+    private static double angleTo(final double fromX, final double fromY,
+                                  final double toX, final double toY)
     {
-        double diffX = toX - fromX;
-        double diffY = toY - fromY;
+        final double diffX = toX - fromX;
+        final double diffY = toY - fromY;
 
         return asNormalizedRadians(Math.atan2(diffY, diffX));
     }
 
-    public void update(int targetPositionX, int targetPositionY)
+    public void update(final int targetPositionX, final int targetPositionY)
     {
         final Point2D position = robotState_.getPosition();
         final Point2D targetPosition = robotState_.getTargetPosition();
@@ -160,8 +162,8 @@ public class RobotModel extends Observable {
             return;
         }
 
-        double velocity = robotState_.getMaxVelocity();
-        double angleToTarget = angleTo(x, y, targetX, targetY);
+        final double velocity = robotState_.getMaxVelocity();
+        final double angleToTarget = angleTo(x, y, targetX, targetY);
 
         double angularVelocity = 0.0;
 
@@ -180,7 +182,8 @@ public class RobotModel extends Observable {
         moveRobot(velocity, angularVelocity, 10);
     }
 
-    private static double applyLimits(double value, double min, double max)
+    private static double applyLimits(final double value, final double min,
+                                      final double max)
     {
         if (value < min)
             return min;
@@ -239,7 +242,7 @@ public class RobotModel extends Observable {
         return angle;
     }
 
-    private static int round(double value)
+    private static int round(final double value)
     {
         return (int)(value + 0.5);
     }
