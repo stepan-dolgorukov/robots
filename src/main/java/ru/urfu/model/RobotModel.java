@@ -8,6 +8,29 @@ import java.util.Observable;
  */
 public class RobotModel extends Observable {
 
+    /**
+     * Точка в двумерном пространстве.
+     * @param <DistanceType> тип расстояния
+     */
+    private class Point2D<DistanceType> {
+        private DistanceType abscissa_;
+        private DistanceType ordinate_;
+
+        public Point2D(final DistanceType abscissa,
+                       final DistanceType ordinate) {
+            abscissa_ = abscissa;
+            ordinate_ = ordinate;
+        }
+
+        public DistanceType getAbscissa() {
+            return abscissa_;
+        }
+
+        public  DistanceType getOrdinate() {
+            return ordinate_;
+        }
+    }
+
     private volatile double m_robotPositionX = 100;
     private volatile double m_robotPositionY = 100;
     private volatile double m_robotDirection = 0;
