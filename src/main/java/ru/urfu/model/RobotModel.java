@@ -35,7 +35,7 @@ public class RobotModel extends Observable {
      * Состояние робота:
      *  где находится,
      *  куда едет,
-     *  скорость,
+     *  максимальная скорость,
      *  максимальная угловая скорость
      */
     private class RobotState<PositionType,TargetPositionType> {
@@ -50,7 +50,7 @@ public class RobotModel extends Observable {
         private Point2D<TargetPositionType> targetPosition_;
 
         /**
-         * С какой скоростью едет робот.
+         * Максимальная скорость.
          */
         private double maxVelocity_ = 0.1;
 
