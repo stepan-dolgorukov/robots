@@ -267,11 +267,11 @@ public class RobotModel extends Observable {
     public double getDirection() {
         return robotState_.getDirection();
     }
-    public int getTargetPositionX() {
+    public double getTargetPositionX() {
         return robotState_.getTargetPosition().getAbscissa();
     }
 
-    public int getTargetPositionY() {
+    public double getTargetPositionY() {
         return robotState_.getTargetPosition().getOrdinate();
     }
 }
