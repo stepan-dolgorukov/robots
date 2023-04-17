@@ -38,7 +38,7 @@ public class RobotModel extends Observable {
      *  максимальная скорость,
      *  максимальная угловая скорость
      */
-    private class RobotState<PositionType,TargetPositionType> {
+    private class RobotState<PositionType> {
         /**
          * Где находится робот.
          */
@@ -47,7 +47,7 @@ public class RobotModel extends Observable {
         /**
          * Где находится цель робота (куда он едет).
          */
-        private Point2D<TargetPositionType> targetPosition_;
+        private Point2D<PositionType> targetPosition_;
 
         /**
          * Максимальная скорость.
@@ -64,7 +64,7 @@ public class RobotModel extends Observable {
          */
         private  double direction_ = 0.0;
         public RobotState(final Point2D<PositionType> position,
-                          final Point2D<TargetPositionType> targetPosition,
+                          final Point2D<PositionType> targetPosition,
                           final double velocity,
                           final double maxAngularVelocity) {
             position_ = position;
@@ -81,11 +81,11 @@ public class RobotModel extends Observable {
             return position_;
         }
 
-        public void setTargetPosition(final Point2D<TargetPositionType> position) {
+        public void setTargetPosition(final Point2D<PositionType> position) {
             targetPosition_ = position;
         }
 
-        public Point2D<TargetPositionType> getTargetPosition() {
+        public Point2D<PositionType> getTargetPosition() {
             return targetPosition_;
         }
 
@@ -113,7 +113,7 @@ public class RobotModel extends Observable {
         }
     }
 
-    final RobotState<Double, Integer> robotState_;
+    final RobotState<Double> robotState_;
 
     public RobotModel() {
 
