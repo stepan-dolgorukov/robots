@@ -118,8 +118,8 @@ public class RobotModel extends Observable {
     public RobotModel() {
 
         {
-            final Point2D position = new Point2D(100, 100);
-            final Point2D targetPosition = new Point2D(150, 100);
+            final Point2D<Double> position = new Point2D<>(100.0, 100.0);
+            final Point2D<Double> targetPosition = new Point2D<>(100.0, 100.0);
             final double maxVelocity = 0.1;
             final double maxAngularVelocity = 0.001;
 
