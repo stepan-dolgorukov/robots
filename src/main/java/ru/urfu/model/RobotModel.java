@@ -31,6 +31,73 @@ public class RobotModel extends Observable {
         }
     }
 
+    /**
+     * Состояние робота:
+     *  где находится,
+     *  куда едет,
+     *  скорость,
+     *  максимальная угловая скорость
+     */
+    private class RobotState<PositionType,TargetPositionType> {
+        /**
+         * Где находится робот.
+         */
+        private Point2D<PositionType> position_;
+
+        /**
+         * Где находится цель робота (куда он едет).
+         */
+        private Point2D<TargetPositionType> targetPosition_;
+
+        /**
+         * С какой скоростью едет робот.
+         */
+        private double velocity_ = 0.1;
+
+        /**
+         * Максимальная угловая скорость.
+         */
+        private double maxAngularVelocity_ = 0.01;
+
+        /**
+         * Направление.
+         */
+        private  double direction_ = 0.0;
+        public RobotState(final Point2D<PositionType> position,
+                          final Point2D<TargetPositionType> targetPosition,
+                          final double velocity,
+                          final double maxAngularVelocity) {
+            position_ = position;
+            targetPosition_ = targetPosition;
+            velocity_ = velocity;
+            maxAngularVelocity_ = maxAngularVelocity;
+        }
+
+        public void setPosition(final Point2D<PositionType> position) {
+            position_ = position;
+        }
+
+        public Point2D<PositionType> getPosition() {
+            return position_;
+        }
+
+        public void setTargetPosition(final Point2D<TargetPositionType> position) {
+            targetPosition_ = position;
+        }
+
+        public Point2D<TargetPositionType> getTargetPosition() {
+            return targetPosition_;
+        }
+
+        public void setDirection(double direction) {
+            direction_ = direction;
+        }
+
+        public double getDirection() {
+            return direction_;
+        }
+    }
+
     private volatile double m_robotPositionX = 100;
     private volatile double m_robotPositionY = 100;
     private volatile double m_robotDirection = 0;
