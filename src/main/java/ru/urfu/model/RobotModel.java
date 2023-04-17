@@ -238,16 +238,17 @@ public class RobotModel extends Observable {
         notifyObservers();
     }
 
-    private static double asNormalizedRadians(double angle)
-    {
-        while (angle < 0)
-        {
-            angle += 2*Math.PI;
+    private static double asNormalizedRadians(double angle) {
+        final double doublePi = 2 * Math.PI;
+
+        while (angle < 0) {
+            angle += doublePi;
         }
-        while (angle >= 2*Math.PI)
-        {
-            angle -= 2*Math.PI;
+
+        while (angle >= doublePi) {
+            angle -= doublePi;
         }
+
         return angle;
     }
 
