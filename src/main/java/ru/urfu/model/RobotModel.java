@@ -52,7 +52,7 @@ public class RobotModel extends Observable {
         /**
          * С какой скоростью едет робот.
          */
-        private double velocity_ = 0.1;
+        private double maxVelocity_ = 0.1;
 
         /**
          * Максимальная угловая скорость.
@@ -69,7 +69,7 @@ public class RobotModel extends Observable {
                           final double maxAngularVelocity) {
             position_ = position;
             targetPosition_ = targetPosition;
-            velocity_ = velocity;
+            maxVelocity_ = velocity;
             maxAngularVelocity_ = maxAngularVelocity;
         }
 
@@ -97,11 +97,11 @@ public class RobotModel extends Observable {
             return direction_;
         }
 
-        public void setVelocity(double velocity) {
-            velocity_ = velocity;
+        public void setMaxVelocity(double velocity) {
+            maxVelocity_ = velocity;
         }
-        public double getVelocity() {
-            return velocity_;
+        public double getMaxVelocity() {
+            return maxVelocity_;
         }
 
         public void setMaxAngularVelocity(double velocity) {
@@ -120,10 +120,10 @@ public class RobotModel extends Observable {
         {
             Point2D position = new Point2D(100, 100);
             Point2D targetPosition = new Point2D(150, 100);
-            double velocity = 0.1;
+            double maxVelocity = 0.1;
             double maxAngularVelocity = 0.001;
 
-            robotState_ = new RobotState<>(position, targetPosition, velocity,
+            robotState_ = new RobotState<>(position, targetPosition, maxVelocity,
                     maxAngularVelocity);
         }
     }
@@ -162,7 +162,7 @@ public class RobotModel extends Observable {
             return;
         }
 
-        double velocity = robotState_.getVelocity();
+        double velocity = robotState_.getMaxVelocity();
         double angleToTarget = angleTo(x, y, targetX, targetY);
 
         double angularVelocity = 0.0;
@@ -194,7 +194,7 @@ public class RobotModel extends Observable {
     private void moveRobot(double velocity, double angularVelocity, double duration)
     {
         final Point2D position = robotState_.getPosition();
-        final double maxVelocity = robotState_.getVelocity();
+        final double maxVelocity = robotState_.getMaxVelocity();
         final double maxAngularVelocity = robotState_.getMaxAngularVelocity();
         final double direction = robotState_.getDirection();
 
