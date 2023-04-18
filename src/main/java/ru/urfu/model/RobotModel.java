@@ -195,7 +195,7 @@ public class RobotModel extends Observable {
         return asNormalizedRadians(Math.atan2(diffY, diffX));
     }
 
-    public void update(final int targetPositionX, final int targetPositionY)
+    public void update(final double targetPositionX, final double targetPositionY)
     {
         final Point2D position = robotState_.getPosition();
         final Point2D targetPosition = robotState_.getTargetPosition();
