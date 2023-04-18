@@ -121,8 +121,8 @@ public class GameVisualizer extends JPanel implements Observer {
      * Регистрация подписчиков.
      * @param observers список подписчиков
      */
-    public void setObservers(List<Observer> observers) {
-        for (Observer observer : observers) {
+    public void setObservers(final List<Observer> observers) {
+        for (final Observer observer : observers) {
             setObserver(observer);
         }
     }
@@ -130,7 +130,7 @@ public class GameVisualizer extends JPanel implements Observer {
     /**
      * Регистрация подписчика.
      */
-    public void setObserver(Observer observer) {
+    public void setObserver(final Observer observer) {
         robotModel.addObserver(observer);
     }
 
@@ -139,7 +139,7 @@ public class GameVisualizer extends JPanel implements Observer {
      * Метод вызывается автоматически.
      */
     @Override
-    public void update(Observable observable, Object obj) {
+    public void update(final Observable observable, final Object obj) {
         onModelUpdateEvent();
     }
 }
