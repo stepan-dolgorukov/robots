@@ -197,26 +197,24 @@ public class RobotModel extends Observable {
 
     public void update(final double targetPositionX, final double targetPositionY)
     {
-        final Point2D position = robotState_.getPosition();
-        final Point2D targetPosition = robotState_.getTargetPosition();
+        final Point2D<Double> position = robotState_.getPosition();
+        final Point2D<Double> targetPosition = robotState_.getTargetPosition();
         final double direction = robotState_.getDirection();
 
-        final double x = Double.parseDouble(""+position.getAbscissa());
-        final double y = Double.parseDouble(""+position.getOrdinate());
+        final Point2D<Double> targetNewPosition = new Point2D<>(targetPositionX,
+                targetPositionY);
 
-        final int targetX = Integer.parseInt(""+targetPosition.getAbscissa());
-        final int targetY = Integer.parseInt(""+targetPosition.getOrdinate());
+        final double distance = distance(position, targetNewPosition);
 
-        final double distance =
-                distance(targetPositionX, targetPositionY, x, y);
-
-        if (distance < 0.5)
-        {
+        if (distance < 0.5) {
             return;
         }
 
         final double velocity = robotState_.getMaxVelocity();
-        final double angleToTarget = angleTo(x, y, targetX, targetY);
+        final double angleToTarget = angleTo(position.getAbscissa(),
+                position.getOrdinate(),
+                targetPosition.getAbscissa(),
+                targetPosition.getOrdinate());
 
         double angularVelocity = 0.0;
 
@@ -245,37 +243,43 @@ public class RobotModel extends Observable {
         return Math.min(value, max);
     }
 
-    private void moveRobot(double velocity, double angularVelocity, double duration)
-    {
-        final Point2D position = robotState_.getPosition();
+    private void moveRobot(final double velocity, final double angularVelocity,
+                           final double duration) {
+
+        final Point2D<Double> position = robotState_.getPosition();
         final double maxVelocity = robotState_.getMaxVelocity();
         final double maxAngularVelocity = robotState_.getMaxAngularVelocity();
         final double direction = robotState_.getDirection();
 
-        final double x = Double.parseDouble(""+position.getAbscissa());
-        final double y = Double.parseDouble(""+position.getOrdinate());
+        System.err.println(direction);
 
-        velocity = applyLimits(velocity, 0, maxVelocity);
-        angularVelocity = applyLimits(angularVelocity, -maxAngularVelocity, maxAngularVelocity);
-        double newX =
-                x + velocity / angularVelocity *
-                (Math.sin(direction  + angularVelocity * duration) -
+        final double newVelocity = applyLimits(velocity, 0, maxVelocity);
+        final double newAngularVelocity =  applyLimits(angularVelocity,
+                -maxAngularVelocity, maxAngularVelocity);
+
+        double newX = position.getAbscissa() + newVelocity / newAngularVelocity *
+                (Math.sin(direction + newAngularVelocity * duration) -
                         Math.sin(direction));
-        if (!Double.isFinite(newX))
-        {
-            newX = x + velocity * duration * Math.cos(direction);
+
+        if (!Double.isFinite(newX)) {
+            newX = position.getAbscissa() +
+                    newVelocity * duration * Math.cos(direction);
         }
-        double newY = y - velocity / angularVelocity *
-                (Math.cos(direction  + angularVelocity * duration) -
+
+        double newY = position.getOrdinate() - newVelocity / newAngularVelocity *
+                (Math.cos(direction + newAngularVelocity * duration) -
                         Math.cos(direction));
-        if (!Double.isFinite(newY))
-        {
-            newY = y + velocity * duration * Math.sin(direction);
+
+        if (!Double.isFinite(newY)) {
+            newY = position.getOrdinate() +
+                    newVelocity * duration * Math.sin(direction);
         }
 
         robotState_.setPosition(new Point2D<>(newX, newY));
-        double newDirection =
-                asNormalizedRadians(direction + angularVelocity * duration);
+
+        final double newDirection =
+                asNormalizedRadians(direction + newAngularVelocity * duration);
+
         robotState_.setDirection(newDirection);
 
         setChanged();
