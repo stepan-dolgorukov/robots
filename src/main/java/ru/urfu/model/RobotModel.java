@@ -73,46 +73,90 @@ public class RobotModel extends Observable {
             maxAngularVelocity_ = maxAngularVelocity;
         }
 
+        /**
+         * Установить позицию роботу.
+         * @param position новая позиция
+         */
         public void setPosition(final Point2D<PositionType> position) {
             position_ = position;
         }
 
+        /**
+         * Узнать позицию робота.
+         */
         public Point2D<PositionType> getPosition() {
             return position_;
         }
 
+        /**
+         * Обновить позицию цели для робота.
+         * @param position новая позиция цели.
+         */
         public void setTargetPosition(final Point2D<PositionType> position) {
             targetPosition_ = position;
         }
 
+        /**
+         * Получить позицию цели.
+         * @return точка, в которой находится цель
+         */
         public Point2D<PositionType> getTargetPosition() {
             return targetPosition_;
         }
 
+        /**
+         * Обновить направление, в котором двигается робот.
+         * Направление задаётся углом. Угол в радианах.
+         * @param direction угол
+         */
         public void setDirection(double direction) {
             direction_ = direction;
         }
 
+        /**
+         * Получить направление.
+         * @return угол, задающий направление
+         */
         public double getDirection() {
             return direction_;
         }
 
+        /**
+         * Обновить максимальную скорость движения робота.
+         * @param velocity новая скорость
+         */
         public void setMaxVelocity(double velocity) {
             maxVelocity_ = velocity;
         }
+
+        /**
+         * Узнать максимальную скорость движения робота.
+         * @return скорость
+         */
         public double getMaxVelocity() {
             return maxVelocity_;
         }
 
+        /**
+         * Установить максимальную угловую скорость движения робота.
+         * @param velocity новая скорость
+         */
         public void setMaxAngularVelocity(double velocity) {
             maxAngularVelocity_ = velocity;
         }
 
+        /**
+         * Получить максимальную угловую скорость.
+         * @return скорость
+         */
         public double getMaxAngularVelocity() {
             return maxAngularVelocity_;
         }
     }
 
+    /**
+     * Объект, характеризующий состояние робота.
+     */
     final RobotState<Double> robotState_;
 
     public RobotModel() {
@@ -257,21 +301,37 @@ public class RobotModel extends Observable {
         return (int)(value + 0.5);
     }
 
+    /**
+     * Абсцисса текущего положения робота.
+     */
     public double getPositionX() {
         return robotState_.getPosition().getAbscissa();
     }
 
+    /**
+     * Ордината положения робота.
+     */
     public double getPositionY() {
         return robotState_.getPosition().getOrdinate();
     }
 
+    /**
+     * Направление робота.
+     */
     public double getDirection() {
         return robotState_.getDirection();
     }
+
+    /**
+     * Абсцисса цели робота.
+     */
     public double getTargetPositionX() {
         return robotState_.getTargetPosition().getAbscissa();
     }
 
+    /**
+     * Ордината цели робота.
+     */
     public double getTargetPositionY() {
         return robotState_.getTargetPosition().getOrdinate();
     }
