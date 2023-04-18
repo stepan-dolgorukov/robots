@@ -238,11 +238,11 @@ public class RobotModel extends Observable {
     private static double applyLimits(final double value, final double min,
                                       final double max)
     {
-        if (value < min)
+        if (value < min) {
             return min;
-        if (value > max)
-            return max;
-        return value;
+        }
+
+        return Math.min(value, max);
     }
 
     private void moveRobot(double velocity, double angularVelocity, double duration)
