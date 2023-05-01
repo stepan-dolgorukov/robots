@@ -18,7 +18,7 @@ public class RobotController {
         model_.addObserver(modelSubscriber);
     }
 
-    public void updateModel(Point2D.Double targetPosition) {
+    public void requestModelUpdate(Point2D.Double targetPosition) {
         model_.update(targetPosition);
     }
 
