@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -11,6 +12,8 @@ import java.util.TimerTask;
 import java.util.List;
 import javax.swing.*;
 
+import ru.urfu.controller.RobotController;
+import ru.urfu.model.RobotInfo;
 import ru.urfu.model.RobotModel;
 
 public class GameVisualizer extends JPanel implements Observer {
@@ -22,11 +25,15 @@ public class GameVisualizer extends JPanel implements Observer {
         return timer;
     }
 
-    private RobotModel robotModel;
+    private RobotController controller_;
+    private RobotInfo robotInfo_;
 
-    public GameVisualizer() 
+    public GameVisualizer(RobotController controller)
     {
-        robotModel = new RobotModel();
+        controller_ = controller;
+        controller_.addSubscriber(this);
+        controller_.requestModelInfo();
+
         m_timer.schedule(new TimerTask()
         {
             @Override
@@ -40,7 +47,10 @@ public class GameVisualizer extends JPanel implements Observer {
             @Override
             public void run()
             {
-                robotModel.update(robotModel.getTargetPositionX(), robotModel.getTargetPositionY());
+                if (null == robotInfo_) {
+                    return;
+                }
+                controller_.requestModelUpdate(robotInfo_.getTargetPosition());
             }
         }, 0, 10);
         addMouseListener(new MouseAdapter()
@@ -48,7 +58,10 @@ public class GameVisualizer extends JPanel implements Observer {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                robotModel.update(e.getX(), e.getY());
+                final Point point = e.getPoint();
+                controller_.requestModelUpdate(new Point2D.Double(point.getX(),
+                                point.getY()));
+//                robotModel.update(e.getX(), e.getY());
 //                System.err.println(String.format("%d %d", e.getX(), e.getY()));
             }
         });
@@ -89,9 +102,15 @@ public class GameVisualizer extends JPanel implements Observer {
     }
     private void drawRobot(Graphics2D g)
     {
-        int robotCenterX = round(robotModel.getPositionX());
-        int robotCenterY = round(robotModel.getPositionY());
-        AffineTransform t = AffineTransform.getRotateInstance(robotModel.getDirection(),
+        if (robotInfo_ == null) {
+            return;
+        }
+        Point2D.Double position = robotInfo_.getPosition();
+
+        int robotCenterX = round(position.getX());
+        int robotCenterY = round(position.getY());
+        AffineTransform t =
+                AffineTransform.getRotateInstance(robotInfo_.getDirection(),
                 robotCenterX, robotCenterY);
         g.setTransform(t);
         g.setColor(Color.MAGENTA);
@@ -106,17 +125,25 @@ public class GameVisualizer extends JPanel implements Observer {
     
     private void drawTarget(Graphics2D g)
     {
-        AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0); 
+        if (robotInfo_ == null) {
+            return;
+        }
+
+        AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
         g.setColor(Color.GREEN);
-        int x = robotModel.getTargetPositionX();
-        int y = robotModel.getTargetPositionY();
+
+        Point2D.Double targetPosition =
+                robotInfo_.getTargetPosition();
+
+        int x = round(targetPosition.getX());
+        int y = round(targetPosition.getY());
 //        System.err.println(String.format("%d %d", x, y));
         fillOval(g, x, y, 5, 5);
         g.setColor(Color.BLACK);
         drawOval(g, x, y, 5, 5);
     }
-    
+
     /**
      * Метод, сообщающий об обновлении observable-объекта.
      * Метод вызывается автоматически.
