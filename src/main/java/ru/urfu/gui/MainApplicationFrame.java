@@ -55,6 +55,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         gameWindow.setSize(400, 400);
         addWindow(gameWindow);
 
+        RobotCoordinatesFrame robotCoordinatesFrame =
+                createRobotCoordinatesFrame();
+
         setJMenuBar(generateMenuBar());
         addWindowListener(new WindowAdapter() {
             @Override
@@ -94,6 +97,14 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         if (states.containsKey(name)) {
             setState(states.get(name));
         }
+    }
+
+    private RobotCoordinatesFrame createRobotCoordinatesFrame() {
+        RobotCoordinatesFrame robotCoordinatesFrame =
+                new RobotCoordinatesFrame(robotController);
+        robotCoordinatesFrame.setSize(200, 200);
+        addWindow(robotCoordinatesFrame);
+        return robotCoordinatesFrame;
     }
 
     protected LogWindow createLogWindow() {
