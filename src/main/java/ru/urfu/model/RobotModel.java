@@ -105,6 +105,10 @@ public class RobotModel extends Observable {
 
         return asNormalizedRadians(Math.atan2(diffY, diffX));
     }
+    public void info() {
+        setChanged();
+        notifyObservers(robotInfo_);
+    }
 
     public void update(Point2D.Double targetNewPosition) {
         final Point2D.Double position = robotInfo_.getPosition();
