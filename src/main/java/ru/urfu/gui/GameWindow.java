@@ -1,5 +1,6 @@
 package ru.urfu.gui;
 
+import ru.urfu.controller.RobotController;
 import ru.urfu.serialization.Saveable;
 import ru.urfu.serialization.State;
 
@@ -13,15 +14,15 @@ public class GameWindow extends JInternalFrame implements Saveable
 {
     private final GameVisualizer m_visualizer;
     private RobotCoordsFrame coordsFrame;
-    public GameWindow() 
+    public GameWindow(RobotController controller)
     {
         super("Игровое поле", true, true, true, true);
-        m_visualizer = new GameVisualizer();
-        m_visualizer.setObserver(m_visualizer);
 
-        coordsFrame = new RobotCoordsFrame();
-        coordsFrame.setVisible(true);
-        m_visualizer.setObserver(coordsFrame);
+        m_visualizer = new GameVisualizer(controller);
+
+//        coordsFrame = new RobotCoordsFrame();
+//        coordsFrame.setVisible(true);
+//        m_visualizer.setObserver(coordsFrame);
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(m_visualizer, BorderLayout.CENTER);
