@@ -139,7 +139,24 @@ public class GameVisualizer extends JPanel implements Observer {
      * Метод вызывается автоматически.
      */
     @Override
-    public void update(final Observable observable, final Object obj) {
+    public void update(final Observable observable, final Object update) {
+        if (null == observable) {
+            return;
+        }
+
+        if (null == update) {
+            return;
+        }
+
+        if (!(observable instanceof RobotModel)) {
+            return;
+        }
+
+        if (!(update instanceof RobotInfo)) {
+            return;
+        }
+
+        robotInfo_ = (RobotInfo) update;
         onModelUpdateEvent();
     }
 }
