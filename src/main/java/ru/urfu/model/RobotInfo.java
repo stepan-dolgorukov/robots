@@ -1,37 +1,18 @@
 package ru.urfu.model;
 
-public class RobotInfo<PositionType> {
-    /**
-     * Точка в двумерном пространстве.
-     * @param <DistanceType> тип расстояния
-     */
-    public static class Point2D<DistanceType> {
-        private final DistanceType abscissa_;
-        private final DistanceType ordinate_;
+import java.awt.*;
+import java.awt.geom.Point2D;
 
-        public Point2D(final DistanceType abscissa,
-                       final DistanceType ordinate) {
-            abscissa_ = abscissa;
-            ordinate_ = ordinate;
-        }
-        public DistanceType getAbscissa() {
-            return abscissa_;
-        }
-
-        public  DistanceType getOrdinate() {
-            return ordinate_;
-        }
-    }
-
+public class RobotInfo {
     /**
      * Где находится робот.
      */
-    protected Point2D<PositionType> position_;
+    protected Point2D.Double position_;
 
     /**
      * Где находится цель робота (куда он едет).
      */
-    protected Point2D<PositionType> targetPosition_;
+    protected Point2D.Double targetPosition_;
 
     /**
      * Максимальная скорость.
@@ -47,8 +28,8 @@ public class RobotInfo<PositionType> {
      * Направление.
      */
     protected  double direction_ = 0.0;
-    public RobotInfo(final Point2D<PositionType> position,
-                     final Point2D<PositionType> targetPosition,
+    public RobotInfo(final Point2D.Double position,
+                     final Point2D.Double targetPosition,
                      final double velocity,
                      final double maxAngularVelocity) {
         position_ = position;
@@ -60,7 +41,7 @@ public class RobotInfo<PositionType> {
     /**
      * Узнать позицию робота.
      */
-    public Point2D<PositionType> getPosition() {
+    public Point2D.Double getPosition() {
         return position_;
     }
 
@@ -68,7 +49,7 @@ public class RobotInfo<PositionType> {
      * Получить позицию цели.
      * @return точка, в которой находится цель
      */
-    public Point2D<PositionType> getTargetPosition() {
+    public Point2D.Double getTargetPosition() {
         return targetPosition_;
     }
 

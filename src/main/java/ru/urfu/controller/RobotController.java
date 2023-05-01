@@ -3,6 +3,7 @@ package ru.urfu.controller;
 import ru.urfu.model.RobotModel;
 
 
+import java.awt.geom.Point2D;
 import java.util.Observer;
 import ru.urfu.model.RobotInfo;
 
@@ -17,7 +18,7 @@ public class RobotController {
         model_.addObserver(modelSubscriber);
     }
 
-    public void updateModel(RobotInfo.Point2D<Double> targetPosition) {
+    public void updateModel(Point2D.Double targetPosition) {
         model_.update(targetPosition);
     }
 }

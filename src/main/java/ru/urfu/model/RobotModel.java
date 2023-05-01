@@ -1,5 +1,6 @@
 package ru.urfu.model;
 
+import java.awt.geom.Point2D;
 import java.util.Observable;
 
 /**
@@ -13,9 +14,10 @@ public class RobotModel extends Observable {
      *  максимальная скорость,
      *  максимальная угловая скорость
      */
-    private class RobotInfoEditable<PositionType> extends RobotInfo<PositionType> {
+    private class RobotInfoEditable extends RobotInfo {
 
-        public RobotInfoEditable(Point2D<PositionType> position, Point2D<PositionType> targetPosition, double velocity, double maxAngularVelocity) {
+        public RobotInfoEditable(Point2D.Double position,
+                                 Point2D.Double targetPosition, double velocity, double maxAngularVelocity) {
             super(position, targetPosition, velocity, maxAngularVelocity);
         }
 
@@ -23,7 +25,7 @@ public class RobotModel extends Observable {
          * Установить позицию роботу.
          * @param position новая позиция
          */
-        public void setPosition(final Point2D<PositionType> position) {
+        public void setPosition(final Point2D.Double position) {
             super.position_ = position;
         }
 
@@ -31,7 +33,7 @@ public class RobotModel extends Observable {
          * Обновить позицию цели для робота.
          * @param position новая позиция цели.
          */
-        public void setTargetPosition(final Point2D<PositionType> position) {
+        public void setTargetPosition(final Point2D.Double position) {
             targetPosition_ = position;
         }
 
@@ -64,30 +66,30 @@ public class RobotModel extends Observable {
     /**
      * Объект, характеризующий состояние робота.
      */
-    final RobotInfoEditable<Double> robotInfo_;
+    final RobotInfoEditable robotInfo_;
 
     public RobotModel() {
 
         {
-            final RobotInfo.Point2D<Double> position = new RobotInfo.Point2D<>(100.0,
+            final Point2D.Double position = new Point2D.Double(100.0,
                     100.0);
-            final RobotInfo.Point2D<Double> targetPosition = new RobotInfo.Point2D<>(100.0, 100.0);
+            final Point2D.Double targetPosition = new Point2D.Double(100.0, 100.0);
             final double maxVelocity = 0.1;
             final double maxAngularVelocity = 0.001;
 
-            robotInfo_ = new RobotInfoEditable<>(position, targetPosition,
+            robotInfo_ = new RobotInfoEditable(position, targetPosition,
                     maxVelocity,
                     maxAngularVelocity);
         }
     }
-    private static double distance(final RobotInfo.Point2D<Double> first,
-                                   final RobotInfo.Point2D<Double> second)
+    private static double distance(final Point2D.Double first,
+                                   final Point2D.Double second)
     {
-        final double firstAbscissa = first.getAbscissa();
-        final double firstOrdinate = first.getOrdinate();
+        final double firstAbscissa = first.getX();
+        final double firstOrdinate = first.getY();
 
-        final double secondAbscissa = second.getAbscissa();
-        final double secondOrdinate = second.getOrdinate();
+        final double secondAbscissa = second.getX();
+        final double secondOrdinate = second.getY();
 
         final double abscissaDiff = firstAbscissa - secondAbscissa;
         final double ordinateDiff = firstOrdinate - secondOrdinate;
@@ -104,14 +106,10 @@ public class RobotModel extends Observable {
         return asNormalizedRadians(Math.atan2(diffY, diffX));
     }
 
-    public void update(final double targetPositionX, final double targetPositionY)
-    {
-        final RobotInfo.Point2D<Double> position = robotInfo_.getPosition();
-        final RobotInfo.Point2D<Double> targetPosition = robotInfo_.getTargetPosition();
+    public void update(Point2D.Double targetNewPosition) {
+        final Point2D.Double position = robotInfo_.getPosition();
+        final Point2D.Double targetPosition = robotInfo_.getTargetPosition();
         final double direction = robotInfo_.getDirection();
-
-        final RobotInfo.Point2D<Double> targetNewPosition = new RobotInfo.Point2D<>(targetPositionX,
-                targetPositionY);
 
         final double distance = distance(position, targetNewPosition);
 
@@ -120,10 +118,10 @@ public class RobotModel extends Observable {
         }
 
         final double velocity = robotInfo_.getMaxVelocity();
-        final double angleToTarget = angleTo(position.getAbscissa(),
-                position.getOrdinate(),
-                targetPosition.getAbscissa(),
-                targetPosition.getOrdinate());
+        final double angleToTarget = angleTo(position.getX(),
+                position.getY(),
+                targetPosition.getX(),
+                targetPosition.getY());
 
         double angularVelocity = 0.0;
 
@@ -137,8 +135,7 @@ public class RobotModel extends Observable {
             angularVelocity = -robotInfo_.getMaxAngularVelocity();
         }
 
-        robotInfo_.setTargetPosition(new RobotInfo.Point2D<>(targetPositionX,
-                targetPositionY));
+        robotInfo_.setTargetPosition(targetNewPosition);
         moveRobot(velocity, angularVelocity, 10);
     }
 
@@ -155,7 +152,7 @@ public class RobotModel extends Observable {
     private void moveRobot(final double velocity, final double angularVelocity,
                            final double duration) {
 
-        final RobotInfo.Point2D<Double> position = robotInfo_.getPosition();
+        final Point2D.Double position = robotInfo_.getPosition();
         final double maxVelocity = robotInfo_.getMaxVelocity();
         final double maxAngularVelocity = robotInfo_.getMaxAngularVelocity();
         final double direction = robotInfo_.getDirection();
@@ -166,25 +163,25 @@ public class RobotModel extends Observable {
         final double newAngularVelocity =  applyLimits(angularVelocity,
                 -maxAngularVelocity, maxAngularVelocity);
 
-        double newX = position.getAbscissa() + newVelocity / newAngularVelocity *
+        double newX = position.getX() + newVelocity / newAngularVelocity *
                 (Math.sin(direction + newAngularVelocity * duration) -
                         Math.sin(direction));
 
         if (!Double.isFinite(newX)) {
-            newX = position.getAbscissa() +
+            newX = position.getX() +
                     newVelocity * duration * Math.cos(direction);
         }
 
-        double newY = position.getOrdinate() - newVelocity / newAngularVelocity *
+        double newY = position.getY() - newVelocity / newAngularVelocity *
                 (Math.cos(direction + newAngularVelocity * duration) -
                         Math.cos(direction));
 
         if (!Double.isFinite(newY)) {
-            newY = position.getOrdinate() +
+            newY = position.getY() +
                     newVelocity * duration * Math.sin(direction);
         }
 
-        robotInfo_.setPosition(new RobotInfo.Point2D<>(newX, newY));
+        robotInfo_.setPosition(new Point2D.Double(newX, newY));
 
         final double newDirection =
                 asNormalizedRadians(direction + newAngularVelocity * duration);
@@ -218,14 +215,14 @@ public class RobotModel extends Observable {
      * Абсцисса текущего положения робота.
      */
     public double getPositionX() {
-        return robotInfo_.getPosition().getAbscissa();
+        return robotInfo_.getPosition().getX();
     }
 
     /**
      * Ордината положения робота.
      */
     public double getPositionY() {
-        return robotInfo_.getPosition().getOrdinate();
+        return robotInfo_.getPosition().getY();
     }
 
     /**
@@ -239,13 +236,13 @@ public class RobotModel extends Observable {
      * Абсцисса цели робота.
      */
     public double getTargetPositionX() {
-        return robotInfo_.getTargetPosition().getAbscissa();
+        return robotInfo_.getTargetPosition().getX();
     }
 
     /**
      * Ордината цели робота.
      */
     public double getTargetPositionY() {
-        return robotInfo_.getTargetPosition().getOrdinate();
+        return robotInfo_.getTargetPosition().getY();
     }
 }
