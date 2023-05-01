@@ -103,6 +103,7 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         RobotCoordinatesFrame robotCoordinatesFrame =
                 new RobotCoordinatesFrame(robotController);
         robotCoordinatesFrame.setSize(200, 200);
+        robotCoordinatesFrame.setIconifiable(true);
         addWindow(robotCoordinatesFrame);
         return robotCoordinatesFrame;
     }
