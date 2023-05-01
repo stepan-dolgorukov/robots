@@ -53,6 +53,8 @@ public class MainApplicationFrame extends JFrame implements Saveable {
 
         GameWindow gameWindow = new GameWindow(robotController);
         gameWindow.setSize(400, 400);
+        gameWindow.setClosable(false);
+        gameWindow.setMaximizable(false);
         addWindow(gameWindow);
 
         RobotCoordinatesFrame robotCoordinatesFrame =
@@ -104,6 +106,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
                 new RobotCoordinatesFrame(robotController);
         robotCoordinatesFrame.setSize(200, 200);
         robotCoordinatesFrame.setIconifiable(true);
+        robotCoordinatesFrame.setResizable(true);
+        robotCoordinatesFrame.setMaximizable(false);
+        robotCoordinatesFrame.setClosable(false);
         addWindow(robotCoordinatesFrame);
         return robotCoordinatesFrame;
     }
@@ -112,6 +117,8 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         LogWindow logWindow = new LogWindow(Logger.getDefaultLogSource());
         logWindow.setLocation(10, 10);
         logWindow.setSize(300, 800);
+        logWindow.setClosable(false);
+        logWindow.setMaximizable(false);
         setMinimumSize(logWindow.getSize());
         logWindow.pack();
         Logger.debug("Протокол работает");
