@@ -58,7 +58,7 @@ public class RobotCoordinatesFrame extends JInternalFrame implements Observer
 
     @Override
     public String getName() {
-        return "MainApplicationFrame";
+        return "RobotCoordinatesFrame";
     }
 
     @Override
