@@ -13,7 +13,9 @@ import java.util.Map;
 import javax.swing.*;
 
 import org.json.JSONObject;
+import ru.urfu.controller.RobotController;
 import ru.urfu.log.Logger;
+import ru.urfu.model.RobotModel;
 import ru.urfu.serialization.*;
 
 /**
@@ -24,6 +26,12 @@ import ru.urfu.serialization.*;
  */
 public class MainApplicationFrame extends JFrame implements Saveable {
     private final JDesktopPane desktopPane = new JDesktopPane();
+
+    /**
+     * Контроллер модели робота.
+     */
+    private final RobotController robotController =
+            new RobotController(new RobotModel());
 
     /**
      * Файл, в который будут выгружаться состояния объектов.
@@ -43,7 +51,7 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         LogWindow logWindow = createLogWindow();
         addWindow(logWindow);
 
-        GameWindow gameWindow = new GameWindow();
+        GameWindow gameWindow = new GameWindow(robotController);
         gameWindow.setSize(400, 400);
         addWindow(gameWindow);
 
