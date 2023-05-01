@@ -116,24 +116,7 @@ public class GameVisualizer extends JPanel implements Observer {
         g.setColor(Color.BLACK);
         drawOval(g, x, y, 5, 5);
     }
-
-    /**
-     * Регистрация подписчиков.
-     * @param observers список подписчиков
-     */
-    public void setObservers(final List<Observer> observers) {
-        for (final Observer observer : observers) {
-            setObserver(observer);
-        }
-    }
-
-    /**
-     * Регистрация подписчика.
-     */
-    public void setObserver(final Observer observer) {
-        robotModel.addObserver(observer);
-    }
-
+    
     /**
      * Метод, сообщающий об обновлении observable-объекта.
      * Метод вызывается автоматически.
