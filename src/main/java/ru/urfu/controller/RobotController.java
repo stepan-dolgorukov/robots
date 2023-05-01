@@ -21,4 +21,8 @@ public class RobotController {
     public void updateModel(Point2D.Double targetPosition) {
         model_.update(targetPosition);
     }
+
+    public void requestModelInfo() {
+        model_.info();
+    }
 }
