@@ -15,10 +15,18 @@ public class RobotController {
     }
 
     public void addSubscriber(final Observer modelSubscriber) {
+        if (null == modelSubscriber) {
+            return;
+        }
+
         model_.addObserver(modelSubscriber);
     }
 
     public void requestModelUpdate(Point2D.Double targetPosition) {
+        if (null == targetPosition) {
+            return;
+        }
+
         model_.update(targetPosition);
     }
 
