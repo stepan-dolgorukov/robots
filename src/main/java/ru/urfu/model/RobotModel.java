@@ -82,6 +82,13 @@ public class RobotModel extends Observable {
                     maxAngularVelocity);
         }
     }
+
+    /**
+     * Расстояние между двумя точками.
+     * @param first первая точка
+     * @param second вторая точка
+     * @return расстояние
+     */
     private static double distance(final Point2D.Double first,
                                    final Point2D.Double second)
     {
@@ -97,6 +104,9 @@ public class RobotModel extends Observable {
         return Math.hypot(abscissaDiff, ordinateDiff);
     }
 
+    /**
+     * Угол между точками: под каким углом проходит прямая, соединяющая точки
+     **/
     private static double angleTo(final double fromX, final double fromY,
                                   final double toX, final double toY)
     {
@@ -105,11 +115,19 @@ public class RobotModel extends Observable {
 
         return asNormalizedRadians(Math.atan2(diffY, diffX));
     }
+
+    /**
+     * Отправить подписчикам нынешнее состояние модели.
+     */
     public void info() {
         setChanged();
         notifyObservers(robotInfo_);
     }
 
+    /**
+     * Обновить модель: установить новые координаты цели.
+     * @param targetNewPosition пара координат X, Y
+     */
     public void update(Point2D.Double targetNewPosition) {
         final Point2D.Double position = robotInfo_.getPosition();
         final Point2D.Double targetPosition = robotInfo_.getTargetPosition();
@@ -143,6 +161,12 @@ public class RobotModel extends Observable {
         moveRobot(velocity, angularVelocity, 10);
     }
 
+    /**
+     * Применить левые и правые границы на значение.
+     * @param value значение, на которое накладываем границы
+     * @param min левая граница
+     * @param max правая граница
+     */
     private static double applyLimits(final double value, final double min,
                                       final double max)
     {
@@ -153,6 +177,15 @@ public class RobotModel extends Observable {
         return Math.min(value, max);
     }
 
+    /**
+     * Высчитать направление & координаты робота. Результаты
+     * сохраняются в информацию о модели. Всем подписчикам приходит
+     * обновление.
+
+     * @param velocity скорость
+     * @param angularVelocity угловая скорость
+     * @param duration сколько планируется двигаться в миллисекундах
+     */
     private void moveRobot(final double velocity, final double angularVelocity,
                            final double duration) {
 
@@ -198,6 +231,11 @@ public class RobotModel extends Observable {
         notifyObservers(robotInfo_);
     }
 
+    /**
+     * Поместить значение угла в радианах в полуинтервал [0; 2π) — нормализация
+     * @param angle значение угла в радианах
+     * @return нормализованное значение
+     **/
     private static double asNormalizedRadians(double angle) {
         final double doublePi = 2 * Math.PI;
 
@@ -212,6 +250,12 @@ public class RobotModel extends Observable {
         return angle;
     }
 
+    /**
+     * Человеческое округление.
+     * Если дробная часть ≥0.5, то вверх, иначе вниз.
+     * @param value округляемое значение
+     * @return округлённое значение
+     */
     private static int round(final double value)
     {
         return (int)(value + 0.5);
