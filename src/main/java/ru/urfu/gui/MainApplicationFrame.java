@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.*;
 
-import org.json.JSONObject;
 import ru.urfu.controller.RobotController;
 import ru.urfu.log.Logger;
 import ru.urfu.model.RobotModel;
@@ -48,15 +46,9 @@ public class MainApplicationFrame extends JFrame implements Saveable {
             screenSize.height - inset * 2);
 
         setContentPane(desktopPane);
-        LogWindow logWindow = createLogWindow();
-        addWindow(logWindow);
 
-        final GameWindow gameWindow = createGameWindow();
-        addWindow(gameWindow);
-
-        RobotCoordinatesFrame robotCoordinatesFrame =
-                createRobotCoordinatesFrame();
-        addWindow(robotCoordinatesFrame);
+        final List<JInternalFrame> internalFrames = createInternalFrames();
+        addWindows(internalFrames);
 
         setJMenuBar(generateMenuBar());
         addWindowListener(new WindowAdapter() {
@@ -68,6 +60,20 @@ public class MainApplicationFrame extends JFrame implements Saveable {
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setStates();
+    }
+
+    private List<JInternalFrame> createInternalFrames() {
+        final List<JInternalFrame> internalWindows = new LinkedList<>();
+        internalWindows.add(createLogWindow());
+        internalWindows.add(createGameWindow());
+        internalWindows.add(createRobotCoordinatesFrame());
+        return internalWindows;
+    }
+
+    private void addWindows(final List<JInternalFrame> frames) {
+        for (final JInternalFrame frame : frames) {
+            addWindow(frame);
+        }
     }
 
     /**
