@@ -28,14 +28,12 @@ public class RobotInfo {
      * Направление.
      */
     protected  double direction_ = 0.0;
-    public RobotInfo(final Point2D.Double position,
-                     final Point2D.Double targetPosition,
-                     final double velocity,
-                     final double maxAngularVelocity) {
-        position_ = position;
-        targetPosition_ = targetPosition;
-        maxVelocity_ = velocity;
-        maxAngularVelocity_ = maxAngularVelocity;
+    public RobotInfo(RobotModel model) {
+        position_ = model.getPosition();
+        targetPosition_ = model.getTargetPosition();
+        maxVelocity_ = model.getMaxVelocity();
+        maxAngularVelocity_ = model.getMaxAngularVelocity();
+        direction_ = model.getDirection();
     }
 
     /**
