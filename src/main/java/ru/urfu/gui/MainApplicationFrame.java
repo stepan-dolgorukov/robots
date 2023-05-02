@@ -56,6 +56,7 @@ public class MainApplicationFrame extends JFrame implements Saveable {
 
         RobotCoordinatesFrame robotCoordinatesFrame =
                 createRobotCoordinatesFrame();
+        addWindow(robotCoordinatesFrame);
 
         setJMenuBar(generateMenuBar());
         addWindowListener(new WindowAdapter() {
@@ -114,7 +115,6 @@ public class MainApplicationFrame extends JFrame implements Saveable {
         robotCoordinatesFrame.setResizable(true);
         robotCoordinatesFrame.setMaximizable(false);
         robotCoordinatesFrame.setClosable(false);
-        addWindow(robotCoordinatesFrame);
         return robotCoordinatesFrame;
     }
 
