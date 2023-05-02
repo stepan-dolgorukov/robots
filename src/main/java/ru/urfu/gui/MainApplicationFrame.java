@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import javax.swing.*;
 
 import ru.urfu.controller.RobotController;
 import ru.urfu.log.Logger;
+import ru.urfu.model.RobotInfo;
 import ru.urfu.model.RobotModel;
 import ru.urfu.serialization.*;
 
@@ -28,8 +30,7 @@ public class MainApplicationFrame extends JFrame implements Saveable {
     /**
      * Контроллер модели робота.
      */
-    private final RobotController robotController =
-            new RobotController(new RobotModel());
+    private final RobotController robotController;
 
     /**
      * Файл, в который будут выгружаться состояния объектов.
@@ -47,6 +48,8 @@ public class MainApplicationFrame extends JFrame implements Saveable {
 
         setContentPane(desktopPane);
 
+        robotController = createRobotController();
+
         final List<JInternalFrame> internalFrames = createInternalFrames();
         addWindows(internalFrames);
 
@@ -60,6 +63,16 @@ public class MainApplicationFrame extends JFrame implements Saveable {
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setStates();
+    }
+
+    private RobotController createRobotController() {
+        Point2D.Double startPosition = new Point2D.Double(100, 100);
+        Point2D.Double targetStartPosition = startPosition;
+
+        RobotInfo startState = new RobotInfo(startPosition,
+                targetStartPosition, 0.1, 0.001, 0);
+        RobotController controller = new RobotController(startState);
+        return controller;
     }
 
     private List<JInternalFrame> createInternalFrames() {
