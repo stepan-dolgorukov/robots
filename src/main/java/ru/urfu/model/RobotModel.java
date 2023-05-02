@@ -171,6 +171,8 @@ public class RobotModel extends Observable {
                 (Math.sin(direction + newAngularVelocity * duration) -
                         Math.sin(direction));
 
+        System.err.println(newX);
+
         if (!Double.isFinite(newX)) {
             newX = position.getX() +
                     newVelocity * duration * Math.cos(direction);
@@ -213,40 +215,5 @@ public class RobotModel extends Observable {
     private static int round(final double value)
     {
         return (int)(value + 0.5);
-    }
-
-    /**
-     * Абсцисса текущего положения робота.
-     */
-    public double getPositionX() {
-        return robotInfo_.getPosition().getX();
-    }
-
-    /**
-     * Ордината положения робота.
-     */
-    public double getPositionY() {
-        return robotInfo_.getPosition().getY();
-    }
-
-    /**
-     * Направление робота.
-     */
-    public double getDirection() {
-        return robotInfo_.getDirection();
-    }
-
-    /**
-     * Абсцисса цели робота.
-     */
-    public double getTargetPositionX() {
-        return robotInfo_.getTargetPosition().getX();
-    }
-
-    /**
-     * Ордината цели робота.
-     */
-    public double getTargetPositionY() {
-        return robotInfo_.getTargetPosition().getY();
     }
 }
