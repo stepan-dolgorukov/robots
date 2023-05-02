@@ -36,6 +36,18 @@ public class RobotInfo {
         direction_ = model.getDirection();
     }
 
+    public RobotInfo(Point2D.Double position,
+                     Point2D.Double targetPosition,
+                     double maxVelocity,
+                     double maxAngularVelocity,
+                     double direction) {
+        position_ = position;
+        targetPosition_ = targetPosition;
+        maxVelocity_ = maxVelocity;
+        maxAngularVelocity_ = maxAngularVelocity;
+        direction_ = direction;
+    }
+
     /**
      * Узнать позицию робота.
      */
