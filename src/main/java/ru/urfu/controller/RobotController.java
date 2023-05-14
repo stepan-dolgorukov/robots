@@ -148,14 +148,8 @@ public class RobotController {
     private double distance(final Point2D.Double first,
                             final Point2D.Double second)
     {
-        final double firstAbscissa = first.getX();
-        final double firstOrdinate = first.getY();
-
-        final double secondAbscissa = second.getX();
-        final double secondOrdinate = second.getY();
-
-        final double abscissaDiff = firstAbscissa - secondAbscissa;
-        final double ordinateDiff = firstOrdinate - secondOrdinate;
+        final double abscissaDiff = first.getX() - second.getX();
+        final double ordinateDiff = first.getY() - second.getY();
 
         return Math.hypot(abscissaDiff, ordinateDiff);
     }
