@@ -9,6 +9,7 @@ import java.util.Observer;
 import ru.urfu.model.RobotInfo;
 
 public class RobotController {
+
     private final RobotModel model_;
 
     public RobotController(final RobotInfo info) {
@@ -52,20 +53,25 @@ public class RobotController {
                 targetPosition.getX(),
                 targetPosition.getY());
 
-        double angularVelocity = 0.0;
-
-        if (angleToTarget > direction)
-        {
-            angularVelocity = model_.getMaxAngularVelocity();
-        }
-
-        if (angleToTarget < direction)
-        {
-            angularVelocity = -model_.getMaxAngularVelocity();
-        }
 
         model_.setTargetPosition(targetNewPosition);
-        moveRobot(velocity, angularVelocity, 10);
+        moveRobot(velocity, turnSign(direction, angleToTarget)
+                * model_.getMaxAngularVelocity(), 10);
+    }
+
+    private int turnSign(double targetAngle, double robotAngle) {
+        final double theta = targetAngle - robotAngle;
+        final double angle = asNormalizedRadians(Math.min(theta, Math.PI - theta));
+
+        if (angle < Math.PI) {
+            return -1;
+        }
+
+        if (angle > Math.PI) {
+            return +1;
+        }
+
+        return 0;
     }
 
     /**
@@ -95,7 +101,7 @@ public class RobotController {
                 (Math.sin(direction + newAngularVelocity * duration) -
                         Math.sin(direction));
 
-        System.err.println(newX);
+//        System.err.println(newX);
 
         if (!Double.isFinite(newX)) {
             newX = position.getX() +
