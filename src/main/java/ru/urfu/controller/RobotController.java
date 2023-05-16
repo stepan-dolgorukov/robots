@@ -60,8 +60,7 @@ public class RobotController {
     }
 
     private int turnSign(double targetAngle, double robotAngle) {
-        final double theta = targetAngle - robotAngle;
-        final double angle = asNormalizedRadians(Math.min(theta, Math.PI - theta));
+        final double angle = asNormalizedRadians(targetAngle - robotAngle);
 
         if (angle < Math.PI) {
             return -1;
